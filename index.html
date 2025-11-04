@@ -1,0 +1,1889 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>InstaBoost - Instagram Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* === General Settings === */
+        :root {
+            --insta-grad: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --primary-color: #e1306c;
+            --dark-bg: rgba(0, 0, 0, 0.2);
+            --font-size-xs: 0.65rem;
+            --font-size-sm: 0.75rem;
+            --font-size-base: 0.8rem;
+            --font-size-md: 0.85rem;
+            --font-size-lg: 0.95rem;
+            --card-size: 180px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: var(--insta-grad);
+            color: var(--text-color);
+            line-height: 1.4;
+            overflow-x: hidden;
+            font-size: var(--font-size-base);
+            position: relative;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 12px;
+            position: relative;
+            z-index: 2;
+        }
+        h1, h2, h3, h4 {
+            margin-bottom: 0.5rem;
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+        }
+        /* === Background Icons === */
+        .bg-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .bg-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.05;
+            animation: float 15s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-40px) rotate(0deg); }
+            75% { transform: translateY(-20px) rotate(-5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        /* === Navbar === */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 12px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo img {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            margin-left: 6px;
+        }
+        .navbar .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .nav-icons .icon-wrapper {
+            position: relative;
+            margin-right: 0.8rem;
+        }
+        .navbar .nav-icons .icon-wrapper:last-child { margin-right: 0; }
+        .navbar .nav-icons .icon {
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+            color: var(--text-color);
+        }
+        .navbar .nav-icons .icon:hover { transform: scale(1.1); color: #ffeb3b; }
+        .icon-badge {
+            position: absolute;
+            top: -4px;
+            right: -8px;
+            background-color: red;
+            color: white;
+            font-size: 0.55rem;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid white;
+            display: none;
+        }
+        #notification-icon, #my-account-icon, #logout-icon { display: none; }
+        /* === Hero Section === */
+        .hero {
+            text-align: center;
+            padding: 1.5rem 0.8rem;
+        }
+        .hero h1 {
+            font-size: var(--font-size-lg);
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: var(--font-size-md);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .intro-section {
+            text-align: center;
+            padding: 1rem 0.8rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+        .intro-section p {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        /* === Square Cards Grid === */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
+            gap: 1.2rem;
+            justify-items: center;
+            margin-bottom: 2rem;
+        }
+        .square-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.2rem;
+            width: var(--card-size);
+            height: var(--card-size);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .square-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        .square-card i {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+        .square-card h3 {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .square-card p {
+            font-size: var(--font-size-xs);
+            opacity: 0.85;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        .square-card button {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+        .square-card button:hover {
+            background: #d01a5a;
+            transform: scale(1.02);
+        }
+        .square-card button:active {
+            transform: scale(0.98);
+        }
+        /* === Portfolio === */
+        .section {
+            padding: 1rem 0.8rem;
+            margin-top: 1rem;
+            background: var(--dark-bg);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .section h2 { font-size: var(--font-size-md); font-weight: 600; }
+        .image-slider { 
+            width: 100%; 
+            height: 140px; 
+            margin: 0.8rem auto; 
+            overflow: hidden; 
+            position: relative; 
+            border-radius: 10px; 
+        }
+        .slider-wrapper { 
+            display: flex; 
+            width: 300%; 
+            height: 100%; 
+            animation: slide 10s infinite ease-in-out; 
+        }
+        .slider-wrapper img { 
+            width: 33.33%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        @keyframes slide {
+            0%, 100% { transform: translateX(0); }
+            33% { transform: translateX(-33.33%); }
+            66% { transform: translateX(-66.66%); }
+        }
+        /* === Reviews === */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .review-card {
+            background: var(--dark-bg);
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-size: var(--font-size-xs);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 160px;
+        }
+        .review-card .stars { 
+            color: #f09433; 
+            margin-bottom: 0.3rem; 
+            font-size: 1rem; 
+        }
+        .review-card p {
+            flex: 1;
+            margin-bottom: 0.3rem;
+            overflow: hidden;
+            line-height: 1.3;
+        }
+        .review-card strong {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+        }
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            width: 100%;
+            max-width: 360px;
+            margin: 1rem auto 0 auto;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border-radius: 10px;
+            font-size: var(--font-size-sm);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(5px);
+        }
+        .review-form input::placeholder, .review-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .review-form .star-rating {
+            direction: ltr;
+            font-size: 1.4rem;
+            cursor: pointer;
+            text-align: center;
+        }
+        .review-form .star-rating .fa-star { color: #ccc; transition: color 0.2s; }
+        .review-form .star-rating .fa-star.selected,
+        .review-form .star-rating .fa-star:hover,
+        .review-form .star-rating .fa-star:hover ~ .fa-star { color: #f09433; }
+        .review-form button {
+            padding: 0.7rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .review-form button:hover {
+            background: #d01a5a;
+            transform: scale(1.02);
+        }
+        .review-form button:active {
+            transform: scale(0.98);
+        }
+        #review-message { margin-top: 0.6rem; text-align: center; font-size: var(--font-size-sm); }
+        /* === After Login === */
+        #content-after-login {
+            display: none;
+            padding: 1.2rem 0.8rem;
+        }
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
+            gap: 1.5rem;
+            justify-items: center;
+            margin: 1.5rem 0;
+        }
+        .service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.2rem;
+            width: var(--card-size);
+            height: var(--card-size);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        .service-card i {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+        .service-card h3 {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .service-card p {
+            font-size: var(--font-size-xs);
+            opacity: 0.85;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        .service-card .btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .service-card .btn:hover {
+            background: #d01a5a;
+            transform: scale(1.02);
+        }
+        .input-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: none;
+        }
+        .input-section h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .input-section input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: var(--font-size-sm);
+            margin-bottom: 1rem;
+            backdrop-filter: blur(5px);
+        }
+        .input-section input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .input-section .btn-group {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+        .input-section .btn {
+            padding: 0.7rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .input-section .btn.cancel {
+            background: #6c757d;
+        }
+        .input-section .btn.cancel:hover {
+            background: #5a6268;
+        }
+        .input-section .btn:hover {
+            background: #d01a5a;
+            transform: scale(1.02);
+        }
+        .input-section .btn:active {
+            transform: scale(0.98);
+        }
+        /* Pricing Table */
+        .pricing-table {
+            width: 100%;
+            max-width: 600px;
+            margin: 1.5rem auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .pricing-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .pricing-table th, .pricing-table td {
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .pricing-table th {
+            background: rgba(225, 48, 108, 0.2);
+        }
+        .pricing-note {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+        }
+        /* Custom Order Form - IMPROVED */
+        .custom-order-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .custom-order-card h3 {
+            text-align: center;
+            margin-bottom: 1.2rem;
+            font-size: var(--font-size-lg);
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(5px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.2);
+        }
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .custom-order-card .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .custom-order-card .btn {
+            padding: 0.8rem 1.4rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            flex: 1;
+            max-width: 180px;
+        }
+        .custom-order-card .btn.cancel {
+            background: #6c757d;
+        }
+        .custom-order-card .btn.cancel:hover {
+            background: #5a6268;
+        }
+        .custom-order-card .btn:hover {
+            background: #d01a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        /* Confirmation Screen */
+        .confirmation-screen {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: none;
+        }
+        .confirmation-screen h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .confirmation-screen .amount {
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 0.8rem 0;
+            color: var(--primary-color);
+        }
+        .qr-code {
+            text-align: center;
+            margin: 1.2rem 0;
+        }
+        .qr-code img {
+            width: 180px;
+            height: 180px;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        .confirmation-screen .message {
+            text-align: center;
+            margin: 1.2rem 0;
+            line-height: 1.5;
+            font-size: var(--font-size-md);
+        }
+        /* Success Notification */
+        .success-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: none;
+            animation: fadeInOut 3s ease-in-out;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(-20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* === Modals === */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 12px;
+        }
+        .modal-content {
+            background: #fff;
+            color: #333;
+            padding: 1.8rem 1.6rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+            font-size: var(--font-size-sm);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 20px; 
+            font-size: 1.6rem; 
+            cursor: pointer; 
+            color: #888; 
+            transition: color 0.2s ease; 
+        }
+        .close-btn:hover { color: #333; }
+        .back-arrow { 
+            position: absolute; 
+            top: 18px; 
+            right: 20px; 
+            font-size: 1.4rem; 
+            cursor: pointer; 
+            color: #555; 
+            transition: color 0.2s ease; 
+        }
+        .back-arrow:hover { color: #000; }
+        .modal-content h2 { 
+            text-align: center; 
+            color: var(--primary-color); 
+            font-size: var(--font-size-lg); 
+            margin-bottom: 1.2rem; 
+            font-weight: 700; 
+        }
+        .modal-content p { 
+            margin-bottom: 0.8rem; 
+            font-size: var(--font-size-sm); 
+            line-height: 1.6;
+        }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 0.4rem; 
+            font-size: var(--font-size-sm); 
+            font-weight: 600;
+            color: #444;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: var(--font-size-sm);
+            background: #fafafa;
+        }
+        .modal-btn {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            margin-top: 0.8rem;
+            transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .modal-btn:hover {
+            background: #d01a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        .modal-btn:active {
+            transform: translateY(0);
+        }
+        .modal-btn.secondary { 
+            background: #6c757d; 
+            color: white; 
+            margin-top: 1rem; 
+        }
+        .modal-btn.secondary:hover {
+            background: #5a6268;
+        }
+        /* === My Account === */
+        .account-options a {
+            display: block;
+            padding: 0.9rem;
+            background: #f8f9fa;
+            margin-bottom: 0.6rem;
+            text-decoration: none;
+            color: #333;
+            border-radius: 8px;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 1px solid #e9ecef;
+        }
+        .account-options a:hover {
+            background: #e9ecef;
+            transform: translateX(6px);
+            border-color: #dfe6e9;
+        }
+        .account-options a.danger { 
+            color: #dc3545; 
+            border-color: #dc3545;
+        }
+        .account-options a.danger:hover {
+            background: #f8d7da;
+            border-color: #c9302c;
+        }
+        /* === Floating Chat === */
+        #floating-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+        #floating-chat:hover {
+            transform: scale(1.15) rotate(10deg);
+            background: #d01a5a;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        #floating-chat i { font-size: 1.5rem; }
+        /* === Chat === */
+        #chat-modal {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 340px;
+            height: 420px;
+            background: white;
+            border-radius: 16px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            z-index: 998;
+            overflow: hidden;
+            border: 2px solid rgba(225, 48, 108, 0.3);
+        }
+        #chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 14px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-size-md);
+        }
+        #chat-messages {
+            flex: 1;
+            padding: 14px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            display: block;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+        .message.support {
+            background: #e9ecef;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 6px;
+        }
+        .message.user {
+            background: var(--primary-color);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 6px;
+        }
+        #chat-input-container {
+            display: flex;
+            padding: 10px;
+            background: white;
+            border-top: 2px solid #e9ecef;
+        }
+        #chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        #chat-input:focus {
+            border-color: var(--primary-color);
+        }
+        #send-message {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+        #send-message:hover {
+            background: #d01a5a;
+            transform: scale(1.05);
+        }
+        #close-chat {
+            cursor: pointer;
+            font-size: 1.4rem;
+            transition: transform 0.2s ease;
+        }
+        #close-chat:hover {
+            transform: rotate(90deg);
+        }
+        /* === Pre-login Chat Form === */
+        #pre-login-chat-form {
+            padding: 1.2rem;
+            display: none;
+        }
+        #pre-login-chat-form input,
+        #pre-login-chat-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background: #fafafa;
+            font-size: var(--font-size-sm);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        #pre-login-chat-form input:focus,
+        #pre-login-chat-form textarea:focus {
+            border-color: var(--primary-color);
+        }
+        #pre-login-chat-form textarea {
+            height: 90px;
+            resize: vertical;
+        }
+        /* === Footer - IMPROVED === */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            gap: 1.2rem;
+        }
+        .footer-socials a {
+            color: white;
+            font-size: 1.4rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .footer-socials a:hover {
+            color: #ffeb3b;
+            transform: translateY(-3px) scale(1.1);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            transition: color 0.2s ease;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+        }
+        .footer-links a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        #copyright {
+            text-align: center;
+            font-size: var(--font-size-xs);
+            opacity: 0.8;
+            margin: 0;
+        }
+        /* === Desktop Media Queries === */
+        @media (min-width: 768px) {
+            .container { padding: 0 20px; }
+            body { font-size: var(--font-size-base); }
+            .navbar .logo { font-size: 1.3rem; }
+            .navbar .logo img { width: 30px; height: 30px; }
+            .navbar .nav-icons .icon { font-size: 1.3rem; }
+            .hero h1 { font-size: var(--font-size-lg); }
+            .hero p { font-size: var(--font-size-md); }
+            .cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            .review-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+            #chat-modal {
+                bottom: 20px;
+                right: 90px;
+                width: 380px;
+                height: 480px;
+            }
+            .footer-links {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Icons -->
+    <div class="bg-icons" id="bg-icons"></div>
+    <header class="navbar">
+        <a href="#" class="logo">
+            <img src="https://i.imgur.com/Em2Q6S9.jpeg" alt="Logo">
+            <span id="site-name">InstaBoost</span>
+        </a>
+        <div class="nav-icons">
+            <div class="icon-wrapper" id="login-icon-wrapper">
+                <i class="fa-solid fa-user-plus icon" id="login-icon" title="Login"></i>
+            </div>
+            <div class="icon-wrapper" id="notification-icon">
+                <i class="fa-solid fa-bell icon" title="Notifications"></i>
+                <span class="icon-badge" id="notification-badge">2</span>
+            </div>
+            <div class="icon-wrapper" id="my-account-icon">
+                <i class="fa-solid fa-user-gear icon" title="My Account"></i>
+            </div>
+            <div class="icon-wrapper" id="logout-icon">
+                <i class="fa-solid fa-right-from-bracket icon" title="Logout"></i>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section id="content-before-login">
+            <section class="hero">
+                <h1 id="hero-title">Boost Your Instagram Presence</h1>
+                <p id="hero-desc">Get real followers and likes to elevate your Instagram account instantly.</p>
+            </section>
+            <section class="intro-section">
+                <p>InstaBoost provides premium Instagram growth services with real engagement. Our platform offers both free trials and affordable paid plans to help you build your social media presence effectively and safely.</p>
+            </section>
+            <!-- Step Cards -->
+            <div class="cards-grid">
+                <div class="square-card">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <h3>Create Account</h3>
+                    <p>Start by creating a new account on our site.</p>
+                    <button id="step1-login-btn">Start Now</button>
+                </div>
+                <div class="square-card">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>Boost Followers</h3>
+                    <p>Get real followers for your Instagram account.</p>
+                    <button id="step2-login-btn">Start Now</button>
+                </div>
+                <div class="square-card">
+                    <i class="fa-solid fa-heart"></i>
+                    <h3>Get More Likes</h3>
+                    <p>Receive likes on your posts and reels.</p>
+                    <button id="step3-login-btn">Start Now</button>
+                </div>
+                <div class="square-card">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Select Your Plan</h3>
+                    <p>Free plan (20) or paid plans starting from $0.1.</p>
+                    <button id="step4-login-btn">Start Now</button>
+                </div>
+            </div>
+            <!-- Reordered Cards: Terminal Tool, Loyalty Bonus, Other Sites -->
+            <div class="cards-grid">
+                <div class="square-card">
+                    <i class="fa-solid fa-terminal"></i>
+                    <h3>Premium Terminal Tool</h3>
+                    <p>Guaranteed tool for $20 to send 100K followers & likes.</p>
+                    <button id="terminal-learn-more">Learn More</button>
+                </div>
+                <div class="square-card">
+                    <i class="fa-solid fa-gift"></i>
+                    <h3>Loyalty Bonus!</h3>
+                    <p>Frequent users get 100 free followers!</p>
+                    <button id="loyalty-login-btn">Login to Get Bonus</button>
+                </div>
+                <div class="square-card">
+                    <i class="fa-solid fa-globe"></i>
+                    <h3>Other Free Sites</h3>
+                    <p>Discover other sites to gain followers for free.</p>
+                    <button id="other-sites-learn-more">Learn More</button>
+                </div>
+            </div>
+            <section class="section">
+                <h2 id="portfolio-title">Our Portfolio</h2>
+                <div class="image-slider">
+                    <div class="slider-wrapper">
+                        <img src="https://via.placeholder.com/600x300/e1306c/fff?text=Sample+Work+1" alt="Work 1">
+                        <img src="https://via.placeholder.com/600x300/f09433/fff?text=Sample+Work+2" alt="Work 2">
+                        <img src="https://via.placeholder.com/600x300/bc1888/fff?text=Sample+Work+3" alt="Work 3">
+                    </div>
+                </div>
+            </section>
+            <section class="section reviews">
+                <h2 id="reviews-title">Customer Reviews</h2>
+                <div class="review-grid">
+                    <div class="review-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p>"Excellent service."</p> <strong>- Ahmed</strong>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                        <p>"Very good."</p> <strong>- Sarah</strong>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                        <p>"Support is helpful."</p> <strong>- Khaled</strong>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p>"The tool is amazing!"</p> <strong>- Yasser</strong>
+                    </div>
+                </div>
+                <form class="review-form" id="review-form">
+                    <h3 id="add-review-title">Add Your Review</h3>
+                    <input type="text" id="review-name" placeholder="Your Name" required>
+                    <input type="email" id="review-email" placeholder="Your Email" required>
+                    <div class="star-rating" id="review-stars">
+                        <i class="fa-regular fa-star" data-value="1"></i>
+                        <i class="fa-regular fa-star" data-value="2"></i>
+                        <i class="fa-regular fa-star" data-value="3"></i>
+                        <i class="fa-regular fa-star" data-value="4"></i>
+                        <i class="fa-regular fa-star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="review-rating-value" value="0">
+                    <textarea rows="3" id="review-text" placeholder="Write your review here..."></textarea>
+                    <button type="submit">Submit Review</button>
+                    <div id="review-message"></div>
+                </form>
+            </section>
+        </section>
+        <section id="content-after-login">
+            <h2 id="welcome-back">Welcome Back!</h2>
+            <p id="welcome-desc">You're now logged in. Choose your service to get started.</p>
+            <!-- Service Selection Cards -->
+            <div class="service-cards">
+                <div class="service-card" id="followers-service">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>Boost Your Followers</h3>
+                    <p>Get real followers for your Instagram account.</p>
+                    <button class="btn">Enter Username</button>
+                </div>
+                <div class="service-card" id="likes-service">
+                    <i class="fa-solid fa-heart"></i>
+                    <h3>Get More Likes</h3>
+                    <p>Receive likes on your posts and reels.</p>
+                    <button class="btn">Enter Reel/Post Link</button>
+                </div>
+            </div>
+            <!-- Input Sections -->
+            <div class="input-section" id="followers-input-section">
+                <h3>Boost Your Followers</h3>
+                <input type="text" id="followers-username" placeholder="Enter your Instagram username" required>
+                <div class="btn-group">
+                    <button class="btn" id="submit-followers">Submit Request</button>
+                    <button class="btn cancel" id="cancel-followers">Cancel</button>
+                </div>
+            </div>
+            <div class="input-section" id="likes-input-section">
+                <h3>Get More Likes</h3>
+                <input type="text" id="likes-url" placeholder="Enter your Reel or Post URL" required>
+                <div class="btn-group">
+                    <button class="btn" id="submit-likes">Submit Request</button>
+                    <button class="btn cancel" id="cancel-likes">Cancel</button>
+                </div>
+            </div>
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loading-spinner">
+                <div class="spinner"></div>
+                <p>Processing your request...</p>
+            </div>
+            <!-- Success Notification -->
+            <div class="success-notification" id="success-notification">
+                ✅ Your request has been sent to support!
+            </div>
+            <!-- Pricing Table -->
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Price per 100</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Followers</td>
+                            <td>100</td>
+                            <td>100,000</td>
+                            <td>$0.20</td>
+                        </tr>
+                        <tr>
+                            <td>Likes</td>
+                            <td>100</td>
+                            <td>100,000</td>
+                            <td>$0.10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="pricing-note">Note: You can order both services in one request.</p>
+            </div>
+            <!-- Custom Order Form - IMPROVED -->
+            <div class="custom-order-card">
+                <h3>Custom Order</h3>
+                <div class="form-group">
+                    <label for="service-type">Service Type</label>
+                    <select id="service-type">
+                        <option value="followers">Followers</option>
+                        <option value="likes">Likes</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity (100-100,000)</label>
+                    <input type="number" id="quantity" min="100" max="100000" value="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="instagram-username">Instagram Username</label>
+                    <input type="text" id="instagram-username" placeholder="Your Instagram username" required>
+                </div>
+                <div class="form-group">
+                    <label for="reel-url">Reel/Post URL (optional if only followers selected)</label>
+                    <input type="text" id="reel-url" placeholder="https://instagram.com/p/...">
+                </div>
+                <div class="form-group">
+                    <label for="usdt-wallet">USDT Wallet Address (required for paid orders)</label>
+                    <input type="text" id="usdt-wallet" placeholder="Enter your USDT wallet address" required>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" id="confirm-order">Confirm Order</button>
+                    <button class="btn cancel">Cancel</button>
+                </div>
+            </div>
+            <!-- Confirmation Screen -->
+            <div class="confirmation-screen" id="confirmation-screen">
+                <h3>Payment Confirmation</h3>
+                <div class="amount" id="total-amount">Total: $0.20</div>
+                <div class="qr-code">
+                    <img src="https://i.imgur.com/Y4CgTn1_d.jpeg?maxwidth=520&shape=thumb&fidelity=high" alt="USDT QR Code">
+                </div>
+                <div class="message">
+                    💳 Please send exactly <span id="payment-amount">$0.20</span> USDT to the address above.<br>
+                    🕒 After payment, click "Payment Confirmed". Our admin will verify your deposit and start your order.
+                </div>
+                <div class="btn-group">
+                    <button class="btn" id="payment-confirmed">Payment Confirmed</button>
+                    <button class="btn cancel" id="cancel-payment">Cancel</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-socials">
+            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#" id="support-link">Support</a>
+            <a href="#" id="why-us-link">Why Us</a>
+            <a href="#" id="about-link">About Us</a>
+            <a href="#" id="terms-link">Terms of Use</a>
+            <a href="#" id="privacy-link">Privacy Policy</a>
+        </div>
+        <p id="copyright">All Rights Reserved © 2025 InstaBoost</p>
+    </footer>
+    <!-- Floating Chat Button -->
+    <div id="floating-chat">
+        <i class="fa-solid fa-comments"></i>
+    </div>
+    <!-- Chat Modal -->
+    <div id="chat-modal">
+        <div id="chat-header">
+            <span id="chat-title">Chat with Support</span>
+            <span id="close-chat">&times;</span>
+        </div>
+        <div id="chat-messages">
+            <div class="message support">Hello! How can I help you today?</div>
+        </div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="send-message"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+        <div id="pre-login-chat-form">
+            <input type="text" id="pre-login-name" placeholder="Your Full Name" required>
+            <input type="email" id="pre-login-email" placeholder="Your Email" required>
+            <textarea id="pre-login-message" placeholder="Your Message" required></textarea>
+            <button class="modal-btn" id="send-pre-login-message">Send Message</button>
+        </div>
+    </div>
+    <!-- Login & Signup Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-login">&times;</span>
+            <h2 id="login-title">Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username" id="username-label">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" id="password-label">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="modal-btn">Login</button>
+            </form>
+            <button class="modal-btn secondary" id="open-signup-btn">Don't have an account? Create Account</button>
+        </div>
+    </div>
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-signup">&times;</span>
+            <h2 id="signup-title">Create New Account</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="new-username" id="new-username-label">Username</label>
+                    <input type="text" id="new-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-email" id="new-email-label">Email</label>
+                    <input type="email" id="new-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password" id="new-password-label">Password</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <button type="submit" class="modal-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+    <!-- Notifications -->
+    <div id="notifications-page" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-arrow-left back-arrow" id="back-from-notifications"></i>
+            <h2 id="notifications-title">Notifications</h2>
+            <div class="notification-item">
+                <strong id="notif-welcome-title">Welcome to our site!</strong>
+                <p id="notif-welcome-desc">We're happy to have you with us.</p>
+            </div>
+            <div class="notification-item">
+                <strong id="notif-try-title">Try our services</strong>
+                <p id="notif-try-desc">You can now try our site for free.</p>
+            </div>
+        </div>
+    </div>
+    <!-- My Account -->
+    <div id="my-account-modal" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-arrow-left back-arrow" id="back-from-account"></i>
+            <h2 id="account-title">My Account Settings</h2>
+            <div class="account-options">
+                <a href="#" id="change-password-link">Change Password</a>
+                <a href="#" id="my-subscription-link">View My Subscription</a>
+                <a href="#" id="change-email-link">Change Email Address</a>
+                <a href="#" class="danger" id="delete-account-link">Delete Account</a>
+            </div>
+        </div>
+    </div>
+    <!-- Account Sub-pages -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-arrow-left back-arrow" id="back-from-password"></i>
+            <h2 id="change-password-title">Change Password</h2>
+            <form id="change-password-form">
+                <div class="form-group">
+                    <label for="current-password" id="current-password-label">Current Password</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password" id="new-password-label">New Password</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password" id="confirm-password-label">Confirm Password</label>
+                    <input type="password" id="confirm-password" required>
+                </div>
+                <button type="submit" class="modal-btn">Update Password</button>
+            </form>
+        </div>
+    </div>
+    <div id="my-subscription-modal" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-arrow-left back-arrow" id="back-from-subscription"></i>
+            <h2 id="my-subscription-title">My Current Subscription</h2>
+            <p id="subscription-details">No active subscription currently.</p>
+            <button class="modal-btn secondary" id="upgrade-subscription-btn">Upgrade Subscription</button>
+        </div>
+    </div>
+    <div id="change-email-modal" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-arrow-left back-arrow" id="back-from-email"></i>
+            <h2 id="change-email-title">Change Email Address</h2>
+            <form id="change-email-form">
+                <div class="form-group">
+                    <label for="current-email" id="current-email-label">Current Email</label>
+                    <input type="email" id="current-email" value="user@example.com" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="new-email" id="new-email-label">New Email</label>
+                    <input type="email" id="new-email" required>
+                </div>
+                <button type="submit" class="modal-btn">Update Email</button>
+            </form>
+        </div>
+    </div>
+    <!-- Terminal Tool Page (Inline Content) -->
+    <div id="terminal-tool-content" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-terminal-content">&times;</span>
+            <h2 id="terminal-page-title">Premium Terminal Tool</h2>
+            <div style="margin: 1.5rem 0; text-align: center;">
+                <img src="https://placehold.co/400x200/e1306c/fff?text=Terminal+Tool+Preview" alt="Terminal Tool" style="width:100%; max-width:400px; border-radius:12px; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+            </div>
+            <p id="terminal-page-desc">
+                Our premium terminal tool is a powerful solution that allows you to send up to 100,000 followers and likes to any Instagram account. This tool is guaranteed to work and provides real engagement metrics.
+            </p>
+            <h3 style="margin: 1.2rem 0; font-weight: 700;">How It Works:</h3>
+            <ol style="text-align: left; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: var(--font-size-sm); line-height: 1.6;">
+                <li>Purchase the tool for $20</li>
+                <li>We send you the executable file with an activation key</li>
+                <li>Run the tool from your terminal/command prompt</li>
+                <li>Follow the on-screen instructions to complete the process</li>
+            </ol>
+            <h3 style="margin: 1.2rem 0; font-weight: 700;">Requirements:</h3>
+            <ul style="text-align: left; padding-left: 1.5rem; margin-bottom: 1.5rem; font-size: var(--font-size-sm); line-height: 1.6;">
+                <li>Windows, macOS, or Linux operating system</li>
+                <li>Active internet connection</li>
+                <li>Basic terminal/command line knowledge</li>
+            </ul>
+            <button class="modal-btn" id="terminal-contact-support">Contact Support to Purchase</button>
+        </div>
+    </div>
+    <!-- Other Sites Page (Inline Content) -->
+    <div id="other-sites-content" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-other-sites-content">&times;</span>
+            <h2 id="other-sites-page-title">Other Free Instagram Services</h2>
+            <p style="margin: 1.2rem 0; text-align: center; font-style: italic; color: #ff6b6b; font-weight: 600;">
+                ⚠️ Warning: These sites may not provide real followers and often require fake accounts for login.
+            </p>
+            <div style="margin: 1.5rem 0; background: rgba(255,255,255,0.1); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="font-weight: 700; margin-bottom: 0.8rem; color: #4ecdc4;">1. Takipcizen.com</h3>
+                <p style="font-size: var(--font-size-sm); margin-bottom: 0.8rem; line-height: 1.5;">
+                    Offers daily free followers (up to 10,000), likes, and comments. However, these are not real followers and require creating fake accounts to use their service.
+                </p>
+                <a href="https://takipcizen.com" target="_blank" style="display: inline-block; color: var(--primary-color); text-decoration: none; font-weight: 700; margin-top: 0.8rem;">
+                    Visit Site →
+                </a>
+            </div>
+            <div style="margin: 1.5rem 0; background: rgba(255,255,255,0.1); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="font-weight: 700; margin-bottom: 0.8rem; color: #4ecdc4;">2. Takipcigir.com</h3>
+                <p style="font-size: var(--font-size-sm); margin-bottom: 0.8rem; line-height: 1.5;">
+                    Provides free followers every 10 minutes (100 followers), likes (150 every 10 minutes), and unlimited unfollow tracking. These services also require fake accounts and do not deliver real, active followers.
+                </p>
+                <a href="https://takipcigir.com" target="_blank" style="display: inline-block; color: var(--primary-color); text-decoration: none; font-weight: 700; margin-top: 0.8rem;">
+                    Visit Site →
+                </a>
+            </div>
+            <div style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(255,107,107,0.1); border-radius: 10px; border-left: 5px solid #ff6b6b;">
+                <h4 style="font-weight: 700; margin-bottom: 0.8rem; color: #ff6b6b;">Important Notice:</h4>
+                <p style="font-size: var(--font-size-sm); line-height: 1.5;">
+                    Both of these sites do not provide real, active Instagram followers. They require you to create fake accounts to access their services, and the followers you receive are typically bots or inactive accounts that can harm your Instagram profile's credibility and may violate Instagram's terms of service.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let isLoggedIn = false;
+            let currentRating = 0;
+            let selectedService = null;
+            // ===== Create Background Icons =====
+            const bgIconsContainer = document.getElementById('bg-icons');
+            const iconClasses = ['fa-heart', 'fa-user', 'fa-comment', 'fa-star', 'fa-instagram'];
+            const iconCount = 12;
+            for (let i = 0; i < iconCount; i++) {
+                const icon = document.createElement('i');
+                icon.className = `bg-icon fa-solid ${iconClasses[Math.floor(Math.random() * iconClasses.length)]}`;
+                icon.style.left = Math.random() * 100 + 'vw';
+                icon.style.top = Math.random() * 100 + 'vh';
+                icon.style.animationDelay = Math.random() * 15 + 's';
+                icon.style.animationDuration = (10 + Math.random() * 20) + 's';
+                icon.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
+                icon.style.opacity = 0.03 + Math.random() * 0.05;
+                bgIconsContainer.appendChild(icon);
+            }
+            // ===== Select Elements =====
+            const loginIconWrapper = document.getElementById('login-icon-wrapper');
+            const loginIcon = document.getElementById('login-icon');
+            const notificationIcon = document.getElementById('notification-icon');
+            const notificationBadge = document.getElementById('notification-badge');
+            const myAccountIcon = document.getElementById('my-account-icon');
+            const logoutIcon = document.getElementById('logout-icon');
+            const loginModal = document.getElementById('login-modal');
+            const signupModal = document.getElementById('signup-modal');
+            const notificationsPage = document.getElementById('notifications-page');
+            const myAccountModal = document.getElementById('my-account-modal');
+            const changePasswordModal = document.getElementById('change-password-modal');
+            const mySubscriptionModal = document.getElementById('my-subscription-modal');
+            const changeEmailModal = document.getElementById('change-email-modal');
+            const terminalToolContent = document.getElementById('terminal-tool-content');
+            const otherSitesContent = document.getElementById('other-sites-content');
+            const openSignupBtn = document.getElementById('open-signup-btn');
+            const changePasswordLink = document.getElementById('change-password-link');
+            const mySubscriptionLink = document.getElementById('my-subscription-link');
+            const changeEmailLink = document.getElementById('change-email-link');
+            const deleteAccountLink = document.getElementById('delete-account-link');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const changePasswordForm = document.getElementById('change-password-form');
+            const changeEmailForm = document.getElementById('change-email-form');
+            const upgradeSubscriptionBtn = document.getElementById('upgrade-subscription-btn');
+            const closeButtons = document.querySelectorAll('.close-btn, .back-arrow');
+            const reviewForm = document.getElementById('review-form');
+            const reviewStarsContainer = document.getElementById('review-stars');
+            const reviewStars = reviewStarsContainer.querySelectorAll('.fa-star');
+            const reviewRatingValue = document.getElementById('review-rating-value');
+            const reviewMessage = document.getElementById('review-message');
+            const contentBeforeLogin = document.getElementById('content-before-login');
+            const contentAfterLogin = document.getElementById('content-after-login');
+            const floatingChat = document.getElementById('floating-chat');
+            const chatModal = document.getElementById('chat-modal');
+            const closeChat = document.getElementById('close-chat');
+            const chatInput = document.getElementById('chat-input');
+            const sendMessageBtn = document.getElementById('send-message');
+            const chatMessages = document.getElementById('chat-messages');
+            const preLoginChatForm = document.getElementById('pre-login-chat-form');
+            const preLoginName = document.getElementById('pre-login-name');
+            const preLoginEmail = document.getElementById('pre-login-email');
+            const preLoginMessage = document.getElementById('pre-login-message');
+            const sendPreLoginMessage = document.getElementById('send-pre-login-message');
+            const loyaltyLoginBtn = document.getElementById('loyalty-login-btn');
+            const step1LoginBtn = document.getElementById('step1-login-btn');
+            const step2LoginBtn = document.getElementById('step2-login-btn');
+            const step3LoginBtn = document.getElementById('step3-login-btn');
+            const step4LoginBtn = document.getElementById('step4-login-btn');
+            const terminalLearnMore = document.getElementById('terminal-learn-more');
+            const otherSitesLearnMore = document.getElementById('other-sites-learn-more');
+            const closeTerminalContent = document.getElementById('close-terminal-content');
+            const closeOtherSitesContent = document.getElementById('close-other-sites-content');
+            const terminalContactSupport = document.getElementById('terminal-contact-support');
+            const followersService = document.getElementById('followers-service');
+            const likesService = document.getElementById('likes-service');
+            const followersInputSection = document.getElementById('followers-input-section');
+            const likesInputSection = document.getElementById('likes-input-section');
+            const submitFollowers = document.getElementById('submit-followers');
+            const submitLikes = document.getElementById('submit-likes');
+            const cancelFollowers = document.getElementById('cancel-followers');
+            const cancelLikes = document.getElementById('cancel-likes');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const successNotification = document.getElementById('success-notification');
+            const confirmOrderBtn = document.getElementById('confirm-order');
+            const confirmationScreen = document.getElementById('confirmation-screen');
+            const paymentConfirmedBtn = document.getElementById('payment-confirmed');
+            const cancelPaymentBtn = document.getElementById('cancel-payment');
+            const totalAmount = document.getElementById('total-amount');
+            const paymentAmount = document.getElementById('payment-amount');
+            // ===== Modal Functions =====
+            function openModal(modal) { if (modal) modal.style.display = 'flex'; }
+            function closeModal(modal) { if (modal) modal.style.display = 'none'; }
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    closeModal(btn.closest('.modal'));
+                });
+            });
+            loginIcon.addEventListener('click', () => openModal(loginModal));
+            notificationIcon.addEventListener('click', () => openModal(notificationsPage));
+            myAccountIcon.addEventListener('click', () => openModal(myAccountModal));
+            terminalLearnMore.addEventListener('click', () => openModal(terminalToolContent));
+            otherSitesLearnMore.addEventListener('click', () => openModal(otherSitesContent));
+            closeTerminalContent.addEventListener('click', () => closeModal(terminalToolContent));
+            closeOtherSitesContent.addEventListener('click', () => closeModal(otherSitesContent));
+            // Login/Signup buttons
+            loyaltyLoginBtn.addEventListener('click', () => openModal(loginModal));
+            step1LoginBtn.addEventListener('click', () => openModal(loginModal));
+            step2LoginBtn.addEventListener('click', () => openModal(loginModal));
+            step3LoginBtn.addEventListener('click', () => openModal(loginModal));
+            step4LoginBtn.addEventListener('click', () => openModal(loginModal));
+            openSignupBtn.addEventListener('click', () => {
+                closeModal(loginModal);
+                openModal(signupModal);
+            });
+            changePasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeModal(myAccountModal);
+                openModal(changePasswordModal);
+            });
+            mySubscriptionLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeModal(myAccountModal);
+                openModal(mySubscriptionModal);
+            });
+            changeEmailLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeModal(myAccountModal);
+                openModal(changeEmailModal);
+            });
+            deleteAccountLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to delete your account?')) {
+                    isLoggedIn = false;
+                    updateUI();
+                    closeModal(myAccountModal);
+                }
+            });
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
+                }
+            });
+            upgradeSubscriptionBtn.addEventListener('click', () => {
+                openModal(chatModal);
+            });
+            terminalContactSupport.addEventListener('click', () => {
+                closeModal(terminalToolContent);
+                openModal(chatModal);
+            });
+            // ===== Rating System =====
+            reviewStars.forEach(star => {
+                star.addEventListener('mouseover', () => {
+                    reviewStars.forEach(s => {
+                        s.classList.remove('selected');
+                        s.classList.remove('fa-solid');
+                        s.classList.add('fa-regular');
+                        if (s.dataset.value <= star.dataset.value) {
+                            s.classList.add('selected');
+                            s.classList.add('fa-solid');
+                        }
+                    });
+                });
+                star.addEventListener('mouseout', () => {
+                    reviewStars.forEach(s => {
+                        s.classList.remove('selected');
+                        if (s.dataset.value > currentRating) {
+                            s.classList.remove('fa-solid');
+                            s.classList.add('fa-regular');
+                        }
+                    });
+                });
+                star.addEventListener('click', () => {
+                    currentRating = star.dataset.value;
+                    reviewRatingValue.value = currentRating;
+                });
+            });
+            reviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('review-email').value;
+                if (currentRating === 0) {
+                    reviewMessage.textContent = 'Please select a rating.';
+                    reviewMessage.style.color = 'red';
+                    return;
+                }
+                // Mock review submission
+                reviewMessage.textContent = 'Thank you for your review!';
+                reviewMessage.style.color = 'green';
+                reviewForm.reset();
+                currentRating = 0;
+                reviewStars.forEach(star => {
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                });
+            });
+            // ===== Login/Signup Logic =====
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                isLoggedIn = true;
+                closeModal(loginModal);
+                updateUI();
+            });
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                closeModal(signupModal);
+                openModal(loginModal);
+                const msg = document.createElement('div');
+                msg.style.color = 'green';
+                msg.style.textAlign = 'center';
+                msg.style.marginTop = '10px';
+                msg.style.fontSize = '0.85rem';
+                msg.textContent = 'Account created successfully! Please log in.';
+                loginModal.querySelector('.modal-content').appendChild(msg);
+                setTimeout(() => msg.remove(), 3000);
+            });
+            logoutIcon.addEventListener('click', () => {
+                isLoggedIn = false;
+                updateUI();
+            });
+            // ===== Chat Functionality - FIXED =====
+            floatingChat.addEventListener('click', () => {
+                if (isLoggedIn) {
+                    // Logged in user - show chat directly
+                    preLoginChatForm.style.display = 'none';
+                    chatMessages.style.display = 'block';
+                    chatInput.style.display = 'block';
+                    document.getElementById('chat-input-container').style.display = 'flex';
+                    chatModal.style.display = 'flex';
+                } else {
+                    // Not logged in - show pre-login form
+                    chatMessages.style.display = 'none';
+                    chatInput.style.display = 'none';
+                    document.getElementById('chat-input-container').style.display = 'none';
+                    preLoginChatForm.style.display = 'block';
+                    chatModal.style.display = 'flex';
+                }
+            });
+            closeChat.addEventListener('click', () => {
+                chatModal.style.display = 'none';
+            });
+            sendMessageBtn.addEventListener('click', () => {
+                if (!isLoggedIn) return;
+                const message = chatInput.value.trim();
+                if (message) {
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'message user';
+                    userMessage.textContent = message;
+                    chatMessages.appendChild(userMessage);
+                    chatInput.value = '';
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    // Auto-reply from support
+                    setTimeout(() => {
+                        const supportMessage = document.createElement('div');
+                        supportMessage.className = 'message support';
+                        supportMessage.textContent = 'Thank you for your message! We will get back to you soon.';
+                        chatMessages.appendChild(supportMessage);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 1000);
+                }
+            });
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessageBtn.click();
+                }
+            });
+            sendPreLoginMessage.addEventListener('click', () => {
+                const name = preLoginName.value.trim();
+                const email = preLoginEmail.value.trim();
+                const message = preLoginMessage.value.trim();
+                if (name && email && message) {
+                    // Mock message sending
+                    const successMsg = document.createElement('div');
+                    successMsg.style.color = 'green';
+                    successMsg.style.textAlign = 'center';
+                    successMsg.style.marginTop = '10px';
+                    successMsg.style.fontSize = '0.85rem';
+                    successMsg.textContent = 'Your message has been sent to support!';
+                    preLoginChatForm.appendChild(successMsg);
+                    setTimeout(() => {
+                        successMsg.remove();
+                        chatModal.style.display = 'none';
+                        preLoginName.value = '';
+                        preLoginEmail.value = '';
+                        preLoginMessage.value = '';
+                    }, 2000);
+                }
+            });
+            // ===== Service Selection =====
+            followersService.addEventListener('click', () => {
+                selectedService = 'followers';
+                followersInputSection.style.display = 'block';
+                likesInputSection.style.display = 'none';
+            });
+            likesService.addEventListener('click', () => {
+                selectedService = 'likes';
+                likesInputSection.style.display = 'block';
+                followersInputSection.style.display = 'none';
+            });
+            cancelFollowers.addEventListener('click', () => {
+                followersInputSection.style.display = 'none';
+                selectedService = null;
+            });
+            cancelLikes.addEventListener('click', () => {
+                likesInputSection.style.display = 'none';
+                selectedService = null;
+            });
+            submitFollowers.addEventListener('click', () => {
+                const username = document.getElementById('followers-username').value.trim();
+                if (username) {
+                    showLoading();
+                    setTimeout(() => {
+                        hideLoading();
+                        showSuccess();
+                        followersInputSection.style.display = 'none';
+                        document.getElementById('followers-username').value = '';
+                    }, 3000);
+                }
+            });
+            submitLikes.addEventListener('click', () => {
+                const url = document.getElementById('likes-url').value.trim();
+                if (url) {
+                    showLoading();
+                    setTimeout(() => {
+                        hideLoading();
+                        showSuccess();
+                        likesInputSection.style.display = 'none';
+                        document.getElementById('likes-url').value = '';
+                    }, 3000);
+                }
+            });
+            function showLoading() {
+                loadingSpinner.style.display = 'block';
+            }
+            function hideLoading() {
+                loadingSpinner.style.display = 'none';
+            }
+            function showSuccess() {
+                successNotification.style.display = 'block';
+                setTimeout(() => {
+                    successNotification.style.display = 'none';
+                }, 3000);
+            }
+            // ===== Custom Order =====
+            confirmOrderBtn.addEventListener('click', () => {
+                const serviceType = document.getElementById('service-type').value;
+                const quantity = parseInt(document.getElementById('quantity').value);
+                const username = document.getElementById('instagram-username').value.trim();
+                const usdtWallet = document.getElementById('usdt-wallet').value.trim();
+                if (quantity && username && usdtWallet) {
+                    // Calculate price
+                    let pricePer100 = 0;
+                    if (serviceType === 'followers') {
+                        pricePer100 = 0.20;
+                    } else if (serviceType === 'likes') {
+                        pricePer100 = 0.10;
+                    } else {
+                        pricePer100 = 0.30; // Both services
+                    }
+                    const total = (quantity / 100) * pricePer100;
+                    const formattedTotal = total.toFixed(2);
+                    totalAmount.textContent = `Total: $${formattedTotal}`;
+                    paymentAmount.textContent = `$${formattedTotal}`;
+                    // Show confirmation screen
+                    confirmationScreen.style.display = 'block';
+                    document.querySelector('.custom-order-card').style.display = 'none';
+                }
+            });
+            cancelPaymentBtn.addEventListener('click', () => {
+                confirmationScreen.style.display = 'none';
+                document.querySelector('.custom-order-card').style.display = 'block';
+            });
+            paymentConfirmedBtn.addEventListener('click', () => {
+                // Mock payment confirmation
+                const successMsg = document.createElement('div');
+                successMsg.style.color = 'green';
+                successMsg.style.textAlign = 'center';
+                successMsg.style.marginTop = '10px';
+                successMsg.style.fontSize = '0.85rem';
+                successMsg.textContent = 'Payment confirmed! Our admin will verify your deposit and start your order.';
+                confirmationScreen.appendChild(successMsg);
+                setTimeout(() => {
+                    successMsg.remove();
+                    confirmationScreen.style.display = 'none';
+                    document.querySelector('.custom-order-card').style.display = 'block';
+                    // Reset form
+                    document.getElementById('quantity').value = '100';
+                    document.getElementById('instagram-username').value = '';
+                    document.getElementById('reel-url').value = '';
+                    document.getElementById('usdt-wallet').value = '';
+                }, 3000);
+            });
+            // ===== UI Update =====
+            function updateUI() {
+                if (isLoggedIn) {
+                    contentBeforeLogin.style.display = 'none';
+                    contentAfterLogin.style.display = 'block';
+                    loginIconWrapper.style.display = 'none';
+                    notificationIcon.style.display = 'block';
+                    notificationBadge.style.display = 'flex';
+                    myAccountIcon.style.display = 'block';
+                    logoutIcon.style.display = 'block';
+                } else {
+                    contentBeforeLogin.style.display = 'block';
+                    contentAfterLogin.style.display = 'none';
+                    loginIconWrapper.style.display = 'block';
+                    notificationIcon.style.display = 'none';
+                    myAccountIcon.style.display = 'none';
+                    logoutIcon.style.display = 'none';
+                }
+            }
+            updateUI();
+        });
+    </script>
+</body>
+</html>
