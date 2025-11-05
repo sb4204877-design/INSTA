@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr" id="html-root">
 <head>
@@ -27,14 +27,12 @@
             --input-focus-shadow: rgba(99, 102, 241, 0.15);
             --error-color: #EF4444;
         }
-        
         /* Dark mode variables */
         .dark-mode {
             --input-bg: #1E293B;
             --input-text: #FFFFFF;
             --input-placeholder: #CBD5E1;
         }
-        
         * {
             margin: 0;
             padding: 0;
@@ -116,17 +114,23 @@
         .navbar .nav-icons {
             display: flex;
             align-items: center;
+            gap: 0.8rem;
         }
-        .navbar .nav-icons .icon-wrapper {
+        .nav-icons .icon-wrapper {
             position: relative;
-            margin-right: 0.8rem;
         }
-        .navbar .nav-icons .icon-wrapper:last-child { margin-right: 0; }
         .navbar .nav-icons .icon {
             font-size: 1.1rem;
             cursor: pointer;
             transition: transform 0.2s ease, color 0.2s ease;
             color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .navbar .nav-icons .icon span {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
         }
         .navbar .nav-icons .icon:hover { transform: scale(1.1); color: #ffeb3b; }
         .icon-badge {
@@ -146,7 +150,6 @@
             display: none;
         }
         #notification-icon, #my-account-icon, #logout-icon { display: none; }
-        
         /* Language Toggle */
         .language-toggle {
             display: flex;
@@ -164,7 +167,6 @@
         .language-toggle i {
             font-size: 0.9rem;
         }
-        
         /* === Hero Section === */
         .hero {
             text-align: center;
@@ -261,6 +263,90 @@
         }
         .bonus-card button:active {
             transform: scale(0.98);
+        }
+        /* === Premium Terminal Tool Section === */
+        .terminal-section, .websites-section {
+            background: var(--dark-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .terminal-section h2, .websites-section h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: var(--font-size-lg);
+        }
+        .terminal-section p, .websites-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .terminal-features, .websites-list {
+            margin: 1.2rem 0;
+        }
+        .terminal-features h3, .websites-list h3 {
+            margin: 1rem 0 0.8rem 0;
+            font-weight: 700;
+        }
+        .terminal-features ol, .websites-list ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .terminal-features li, .websites-list li {
+            margin-bottom: 0.5rem;
+        }
+        .website-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        .website-item h4 {
+            margin-bottom: 0.5rem;
+            color: #4ecdc4;
+        }
+        .website-warning {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 5px solid #ff6b6b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+        .website-warning h4 {
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+        .btn {
+            padding: 0.8rem 1.4rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            margin-left: 0.8rem;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
         }
         /* === Portfolio === */
         .section {
@@ -449,6 +535,42 @@
             background: #4f46e5;
             transform: scale(1.02);
         }
+        /* === Enlarged Service Cards === */
+        .enlarged-service-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        @media (min-width: 768px) {
+            .enlarged-service-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .enlarged-service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .enlarged-service-card h3 {
+            font-size: var(--font-size-lg);
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        .enlarged-service-card p {
+            text-align: center;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+        .enlarged-service-card .btn {
+            width: 100%;
+            padding: 0.9rem;
+            font-size: var(--font-size-md);
+            height: 48px;
+        }
         .input-section {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -472,6 +594,7 @@
             font-size: var(--font-size-sm);
             margin-bottom: 1rem;
             backdrop-filter: blur(5px);
+            font-weight: 500;
         }
         .input-section input::placeholder {
             color: var(--input-placeholder);
@@ -480,7 +603,6 @@
             outline: none;
             border-color: var(--input-focus-border);
             box-shadow: 0 0 0 3px var(--input-focus-shadow);
-            color: #0b1220;
         }
         .input-section .btn-group {
             display: flex;
@@ -606,6 +728,7 @@
             font-size: var(--font-size-sm);
             backdrop-filter: blur(5px);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 500;
         }
         .form-group input::placeholder {
             color: var(--input-placeholder);
@@ -614,7 +737,6 @@
             outline: none;
             border-color: var(--input-focus-border);
             box-shadow: 0 0 0 3px var(--input-focus-shadow);
-            color: #0b1220;
         }
         .custom-order-card .btn-group {
             display: flex;
@@ -691,7 +813,7 @@
         /* Success Notification */
         .success-notification {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
             background: #28a745;
             color: white;
@@ -804,6 +926,7 @@
             font-size: var(--font-size-sm);
             background: var(--input-bg);
             color: var(--input-text);
+            font-weight: 500;
         }
         .form-group input::placeholder {
             color: var(--input-placeholder);
@@ -812,7 +935,6 @@
             outline: none;
             border-color: var(--input-focus-border);
             box-shadow: 0 0 0 3px var(--input-focus-shadow);
-            color: #0b1220;
         }
         .modal-btn {
             width: 100%;
@@ -856,6 +978,34 @@
         .privacy-text a {
             color: var(--primary-color);
             text-decoration: underline;
+        }
+        /* Terms & Conditions Checkbox */
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            gap: 0.5rem;
+        }
+        .terms-checkbox input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+        .terms-checkbox label {
+            font-size: 0.8rem;
+            color: #444;
+        }
+        /* Password Toggle */
+        .password-toggle {
+            position: relative;
+        }
+        .password-toggle i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6B7280;
         }
         /* === My Account === */
         .account-options a {
@@ -979,6 +1129,7 @@
         }
         #chat-input:focus {
             border-color: var(--primary-color);
+            color: #0b1220;
         }
         #send-message {
             background: var(--primary-color);
@@ -1023,6 +1174,7 @@
             font-size: var(--font-size-sm);
             outline: none;
             transition: border-color 0.3s ease;
+            font-weight: 500;
         }
         #pre-login-chat-form input::placeholder,
         #pre-login-chat-form textarea::placeholder {
@@ -1084,7 +1236,6 @@
             opacity: 0.8;
             margin: 0;
         }
-        
         /* Language toggle in footer */
         .footer-language {
             text-align: center;
@@ -1097,7 +1248,6 @@
             display: inline-flex;
             align-items: center;
         }
-        
         /* === Responsive Design === */
         @media (min-width: 640px) {
             .cards-grid {
@@ -1137,6 +1287,17 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
+        [dir="rtl"] {
+            text-align: right;
+            direction: rtl;
+        }
+        [dir="rtl"] .navbar .logo img {
+            margin-left: 0;
+            margin-right: 6px;
+        }
+        [dir="rtl"] .nav-icons {
+            gap: 0.8rem;
+        }
     </style>
 </head>
 <body>
@@ -1153,7 +1314,9 @@
                 <span id="lang-text">EN</span>
             </div>
             <div class="icon-wrapper" id="login-icon-wrapper">
-                <i class="fa-solid fa-user-plus icon" id="login-icon" title="Login"></i>
+                <i class="fa-solid fa-user-plus icon" id="login-icon" title="Login">
+                    <span id="login-text">Login</span>
+                </i>
             </div>
             <div class="icon-wrapper" id="notification-icon">
                 <i class="fa-solid fa-bell icon" title="Notifications"></i>
@@ -1178,22 +1341,22 @@
             </section>
             <!-- Step Cards -->
             <div class="cards-grid">
-                <div class="square-card" onclick="openLoginModal()">
+                <div class="square-card">
                     <i class="fa-solid fa-user-plus"></i>
                     <h3>Create Account</h3>
                     <p>Start by creating a new account on our site.</p>
                 </div>
-                <div class="square-card" onclick="openLoginModal()">
+                <div class="square-card">
                     <i class="fa-solid fa-users"></i>
                     <h3>Boost Followers</h3>
                     <p>Get real followers for your Instagram account.</p>
                 </div>
-                <div class="square-card" onclick="openLoginModal()">
+                <div class="square-card">
                     <i class="fa-solid fa-heart"></i>
                     <h3>Get More Likes</h3>
                     <p>Receive likes on your posts and reels.</p>
                 </div>
-                <div class="square-card" onclick="openLoginModal()">
+                <div class="square-card">
                     <i class="fa-solid fa-chart-line"></i>
                     <h3>Select Your Plan</h3>
                     <p>Free plan (20) or paid plans starting from $0.1.</p>
@@ -1201,7 +1364,7 @@
             </div>
             <!-- Reordered Cards: Terminal Tool, Loyalty Bonus, Other Sites -->
             <div class="cards-grid">
-                <div class="square-card" id="terminal-link">
+                <div class="square-card">
                     <i class="fa-solid fa-terminal"></i>
                     <h3>Premium Terminal Tool</h3>
                     <p>Guaranteed tool for $20 to send 100K followers & likes.</p>
@@ -1212,20 +1375,71 @@
                     <p>Frequent users get 100 free followers!</p>
                     <button id="loyalty-login-btn">Login to Get Bonus</button>
                 </div>
-                <div class="square-card" id="websites-link">
+                <div class="square-card">
                     <i class="fa-solid fa-globe"></i>
                     <h3>Other Free Sites</h3>
                     <p>Discover other sites to gain followers for free.</p>
                 </div>
             </div>
+            <!-- Premium Terminal Tool Section -->
+            <div class="terminal-section">
+                <h2>Premium Terminal Tool</h2>
+                <p>Our premium terminal tool is a powerful solution that allows you to send up to 100,000 followers and likes to any Instagram account. This tool is guaranteed to work and provides real engagement metrics.</p>
+                <div class="terminal-features">
+                    <h3>How It Works:</h3>
+                    <ol>
+                        <li>Purchase the tool for $20</li>
+                        <li>We send you the executable file with an activation key</li>
+                        <li>Run the tool from your terminal/command prompt</li>
+                        <li>Follow the on-screen instructions to complete the process</li>
+                    </ol>
+                    <h3>Requirements:</h3>
+                    <ul>
+                        <li>Windows, macOS, or Linux operating system</li>
+                        <li>Active internet connection</li>
+                        <li>Basic terminal/command line knowledge</li>
+                    </ul>
+                </div>
+                <!-- تعليق لوضع صور أداة الترمنال هنا -->
+                <!-- ضع روابط الصور مباشرة هنا -->
+                <div class="image-slider" id="terminal-images">
+                    <!-- سيتم استبدال هذا المحتوى لاحقًا -->
+                    <img src="https://placehold.co/600x300/4ecdc4/fff?text=Terminal+Tool+Demo" alt="Terminal Tool">
+                </div>
+                <button class="btn" id="terminal-contact-support">Contact Support to Purchase</button>
+            </div>
+            <!-- Portfolio Section -->
             <section class="section">
                 <h2 id="portfolio-title">Our Portfolio</h2>
-                <div class="image-slider">
-                    <div class="slider-wrapper" id="portfolio-slider">
-                        <img src="https://via.placeholder.com/600x300/e1306c/fff?text=Sample+Work+1" alt="Work 1">
-                    </div>
+                <!-- تعليق لوضع صور بعض الأعمال هنا -->
+                <!-- ضع روابط الصور مباشرة هنا -->
+                <div class="image-slider" id="portfolio-slider">
+                    <img src="https://via.placeholder.com/600x300/e1306c/fff?text=Sample+Work+1" alt="Work 1">
                 </div>
             </section>
+            <!-- Other Free Sites Section -->
+            <div class="websites-section">
+                <h2>Other Free Instagram Services</h2>
+                <p style="text-align: center; font-style: italic; color: #ff6b6b; font-weight: 600; margin-bottom: 1.5rem;">
+                    ⚠️ Warning: These sites may not provide real followers and often require fake accounts for login.
+                </p>
+                <div class="websites-list">
+                    <div class="website-item">
+                        <h4>1. Takipcizen.com</h4>
+                        <p>Offers daily free followers (up to 10,000), likes, and comments. However, these are not real followers and require creating fake accounts to use their service.</p>
+                        <button class="btn" onclick="window.open('https://takipcizen.com', '_blank', 'noopener')">Open Site</button>
+                    </div>
+                    <div class="website-item">
+                        <h4>2. Takipcigir.com</h4>
+                        <p>Provides free followers every 10 minutes (100 followers), likes (150 every 10 minutes), and unlimited unfollow tracking. These services also require fake accounts and do not deliver real, active followers.</p>
+                        <button class="btn" onclick="window.open('https://takipcigir.com', '_blank', 'noopener')">Open Site</button>
+                    </div>
+                </div>
+                <div class="website-warning">
+                    <h4>Important Notice:</h4>
+                    <p>Both of these sites do not provide real, active Instagram followers. They require you to create fake accounts to access their services, and the followers you receive are typically bots or inactive accounts that can harm your Instagram profile's credibility and may violate Instagram's terms of service.</p>
+                </div>
+            </div>
             <section class="section reviews">
                 <h2 id="reviews-title">Customer Reviews</h2>
                 <div class="review-grid">
@@ -1242,7 +1456,7 @@
                         <p>"Support is helpful."</p> <strong>- Khaled</strong>
                     </div>
                     <div class="review-card">
-                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solidfa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                         <p>"The tool is amazing!"</p> <strong>- Yasser</strong>
                     </div>
                 </div>
@@ -1267,16 +1481,16 @@
         <section id="content-after-login">
             <h2 id="welcome-back">Welcome Back!</h2>
             <p id="welcome-desc">You're now logged in. Choose your service to get started.</p>
-            <!-- Service Selection Cards -->
-            <div class="service-cards">
-                <div class="service-card" id="followers-service">
-                    <i class="fa-solid fa-users"></i>
+            <!-- Enlarged Service Cards للحساب -->
+            <div class="enlarged-service-cards">
+                <div class="enlarged-service-card" id="enlarged-followers-service">
+                    <i class="fa-solid fa-users" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
                     <h3>Boost Your Followers</h3>
                     <p>Get real followers for your Instagram account.</p>
                     <button class="btn">Enter Username</button>
                 </div>
-                <div class="service-card" id="likes-service">
-                    <i class="fa-solid fa-heart"></i>
+                <div class="enlarged-service-card" id="enlarged-likes-service">
+                    <i class="fa-solid fa-heart" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
                     <h3>Get More Likes</h3>
                     <p>Receive likes on your posts and reels.</p>
                     <button class="btn">Enter Reel/Post Link</button>
@@ -1367,9 +1581,14 @@
                     <input type="text" id="usdt-wallet" placeholder="Enter your USDT wallet address" required>
                     <div class="error-message" id="wallet-error"></div>
                 </div>
+                <!-- دائرة التحميل للطلب المخصص -->
+                <div class="loading-spinner" id="custom-order-loading" style="padding: 1rem 0; display: none;">
+                    <div class="spinner"></div>
+                    <p>Processing your custom order...</p>
+                </div>
                 <div class="btn-group">
                     <button class="btn" id="confirm-order">Confirm Order</button>
-                    <button class="btn cancel">Cancel</button>
+                    <!-- تم إزالة زر الإلغاء من صفحة ملء المعلومات للطلب المخصص -->
                 </div>
             </div>
             <!-- Confirmation Screen -->
@@ -1392,9 +1611,10 @@
     </main>
     <footer>
         <div class="footer-socials">
-            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <!-- روابط حساباتك -->
+            <a href="https://www.instagram.com/salah__badi__19/" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://web.facebook.com/profile.php?id=100085789788180" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.tiktok.com/@salah__badi__5" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
         </div>
         <div class="footer-links">
             <a href="#" id="support-link">Support</a>
@@ -1440,15 +1660,21 @@
         <div class="modal-content">
             <span class="close-btn" id="close-login">&times;</span>
             <h2 id="login-title">Login</h2>
+            <!-- دائرة تحميل في صفحة تسجيل الدخول -->
+            <div class="loading-spinner" id="login-loading" style="padding: 1rem 0; display: none;">
+                <div class="spinner"></div>
+                <p>Logging in...</p>
+            </div>
             <form id="login-form">
                 <div class="form-group">
                     <label for="username" id="username-label">Email</label>
                     <input type="email" id="username" placeholder="Email" required>
                     <div class="error-message" id="login-email-error"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group password-toggle">
                     <label for="password" id="password-label">Password</label>
                     <input type="password" id="password" placeholder="Password" required>
+                    <i class="fa-solid fa-eye" id="toggle-password"></i>
                     <div class="error-message" id="login-password-error"></div>
                 </div>
                 <button type="submit" class="modal-btn">Login</button>
@@ -1466,17 +1692,19 @@
                     <input type="email" id="new-email" placeholder="Email" required>
                     <div class="error-message" id="signup-email-error"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group password-toggle">
                     <label for="new-password" id="new-password-label">Password</label>
                     <input type="password" id="new-password" placeholder="Password" required>
+                    <i class="fa-solid fa-eye" id="toggle-signup-password"></i>
                     <div class="password-strength" id="password-strength">
                         <div class="password-strength-bar" id="password-strength-bar"></div>
                     </div>
                     <div class="error-message" id="signup-password-error"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group password-toggle">
                     <label for="confirm-password" id="confirm-password-label">Confirm Password</label>
                     <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                    <i class="fa-solid fa-eye" id="toggle-confirm-password"></i>
                     <div class="error-message" id="confirm-password-error"></div>
                 </div>
                 <div class="form-group">
@@ -1487,8 +1715,12 @@
                     <label for="phone-number" id="phone-number-label">Phone Number (Optional)</label>
                     <input type="tel" id="phone-number" placeholder="Phone Number">
                 </div>
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms-checkbox" required>
+                    <label for="terms-checkbox" id="terms-label">I agree to the <a href="#" id="terms-link-modal">Terms of Use</a> and <a href="#" id="privacy-link-modal">Privacy Policy</a>.</label>
+                </div>
                 <div class="privacy-text">
-                    By creating an account, you agree to our <a href="#" id="terms-link-modal">Terms of Use</a> and <a href="#" id="privacy-link-modal">Privacy Policy</a>.
+                    By creating an account, you agree to our <a href="#" id="terms-link-modal2">Terms of Use</a> and <a href="#" id="privacy-link-modal2">Privacy Policy</a>.
                 </div>
                 <button type="submit" class="modal-btn">Create Account</button>
             </form>
@@ -1576,69 +1808,323 @@
             </form>
         </div>
     </div>
-    <!-- Terminal Tool Page (Separate Page Simulation) -->
-    <div id="terminal-page" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-btn" id="close-terminal-page">&times;</span>
-            <h2 id="terminal-page-title">Premium Terminal Tool</h2>
-            <div style="margin: 1.5rem 0; text-align: center;">
-                <img src="https://placehold.co/400x200/6366F1/fff?text=Terminal+Tool+Preview" alt="Terminal Tool" style="width:100%; max-width:400px; border-radius:12px; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
-            </div>
-            <p id="terminal-page-desc">
-                Our premium terminal tool is a powerful solution that allows you to send up to 100,000 followers and likes to any Instagram account. This tool is guaranteed to work and provides real engagement metrics.
-            </p>
-            <h3 style="margin: 1.2rem 0; font-weight: 700;">How It Works:</h3>
-            <ol style="text-align: left; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: var(--font-size-sm); line-height: 1.6;">
-                <li>Purchase the tool for $20</li>
-                <li>We send you the executable file with an activation key</li>
-                <li>Run the tool from your terminal/command prompt</li>
-                <li>Follow the on-screen instructions to complete the process</li>
-            </ol>
-            <h3 style="margin: 1.2rem 0; font-weight: 700;">Requirements:</h3>
-            <ul style="text-align: left; padding-left: 1.5rem; margin-bottom: 1.5rem; font-size: var(--font-size-sm); line-height: 1.6;">
-                <li>Windows, macOS, or Linux operating system</li>
-                <li>Active internet connection</li>
-                <li>Basic terminal/command line knowledge</li>
-            </ul>
-            <button class="modal-btn" id="terminal-contact-support">Contact Support to Purchase</button>
-        </div>
-    </div>
-    <!-- Other Sites Page (Separate Page Simulation) -->
-    <div id="websites-page" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-btn" id="close-websites-page">&times;</span>
-            <h2 id="other-sites-page-title">Other Free Instagram Services</h2>
-            <p style="margin: 1.2rem 0; text-align: center; font-style: italic; color: #ff6b6b; font-weight: 600;">
-                ⚠️ Warning: These sites may not provide real followers and often require fake accounts for login.
-            </p>
-            <div style="margin: 1.5rem 0; background: rgba(255,255,255,0.1); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
-                <h3 style="font-weight: 700; margin-bottom: 0.8rem; color: #4ecdc4;">1. Takipcizen.com</h3>
-                <p style="font-size: var(--font-size-sm); margin-bottom: 0.8rem; line-height: 1.5;">
-                    Offers daily free followers (up to 10,000), likes, and comments. However, these are not real followers and require creating fake accounts to use their service.
-                </p>
-                <button class="modal-btn" onclick="window.open('https://takipcizen.com', '_blank', 'noopener')">Open Site</button>
-            </div>
-            <div style="margin: 1.5rem 0; background: rgba(255,255,255,0.1); padding: 1.2rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
-                <h3 style="font-weight: 700; margin-bottom: 0.8rem; color: #4ecdc4;">2. Takipcigir.com</h3>
-                <p style="font-size: var(--font-size-sm); margin-bottom: 0.8rem; line-height: 1.5;">
-                    Provides free followers every 10 minutes (100 followers), likes (150 every 10 minutes), and unlimited unfollow tracking. These services also require fake accounts and do not deliver real, active followers.
-                </p>
-                <button class="modal-btn" onclick="window.open('https://takipcigir.com', '_blank', 'noopener')">Open Site</button>
-            </div>
-            <div style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(255,107,107,0.1); border-radius: 10px; border-left: 5px solid #ff6b6b;">
-                <h4 style="font-weight: 700; margin-bottom: 0.8rem; color: #ff6b6b;">Important Notice:</h4>
-                <p style="font-size: var(--font-size-sm); line-height: 1.5;">
-                    Both of these sites do not provide real, active Instagram followers. They require you to create fake accounts to access their services, and the followers you receive are typically bots or inactive accounts that can harm your Instagram profile's credibility and may violate Instagram's terms of service.
-                </p>
-            </div>
-        </div>
-    </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // === Translation Data ===
+            const translations = {
+                en: {
+                    // Navbar
+                    siteName: "InstaBoost",
+                    loginText: "Login",
+                    
+                    // Hero
+                    heroTitle: "Boost Your Instagram Presence",
+                    heroDesc: "Get real followers and likes to elevate your Instagram account instantly.",
+                    
+                    // Intro
+                    introText: "InstaBoost provides premium Instagram growth services with real engagement. Our platform offers both free trials and affordable paid plans to help you build your social media presence effectively and safely.",
+                    
+                    // Cards
+                    createAccount: "Create Account",
+                    boostFollowers: "Boost Followers",
+                    getMoreLikes: "Get More Likes",
+                    selectYourPlan: "Select Your Plan",
+                    premiumTerminalTool: "Premium Terminal Tool",
+                    loyaltyBonus: "Loyalty Bonus!",
+                    otherFreeSites: "Other Free Sites",
+                    
+                    // Card Descriptions
+                    createAccountDesc: "Start by creating a new account on our site.",
+                    boostFollowersDesc: "Get real followers for your Instagram account.",
+                    getMoreLikesDesc: "Receive likes on your posts and reels.",
+                    selectYourPlanDesc: "Free plan (20) or paid plans starting from $0.1.",
+                    premiumTerminalToolDesc: "Guaranteed tool for $20 to send 100K followers & likes.",
+                    loyaltyBonusDesc: "Frequent users get 100 free followers!",
+                    otherFreeSitesDesc: "Discover other sites to gain followers for free.",
+                    
+                    // Buttons
+                    loyaltyLoginBtn: "Login to Get Bonus",
+                    contactSupport: "Contact Support to Purchase",
+                    openSite: "Open Site",
+                    
+                    // Portfolio
+                    portfolioTitle: "Our Portfolio",
+                    
+                    // Websites Section
+                    otherFreeServices: "Other Free Instagram Services",
+                    warningText: "⚠️ Warning: These sites may not provide real followers and often require fake accounts for login.",
+                    importantNotice: "Important Notice:",
+                    noticeDesc: "Both of these sites do not provide real, active Instagram followers. They require you to create fake accounts to access their services, and the followers you receive are typically bots or inactive accounts that can harm your Instagram profile's credibility and may violate Instagram's terms of service.",
+                    
+                    // Reviews
+                    reviewsTitle: "Customer Reviews",
+                    addReviewTitle: "Add Your Review",
+                    submitReview: "Submit Review",
+                    reviewName: "Your Name",
+                    reviewEmail: "Your Email",
+                    
+                    // After Login
+                    welcomeBack: "Welcome Back!",
+                    welcomeDesc: "You're now logged in. Choose your service to get started.",
+                    boostYourFollowers: "Boost Your Followers",
+                    getMoreLikesService: "Get More Likes",
+                    enterUsername: "Enter Username",
+                    enterReelPostLink: "Enter Reel/Post Link",
+                    processing: "Processing your request...",
+                    successMessage: "✅ Your request has been sent to support!",
+                    
+                    // Input Sections
+                    boostFollowersInput: "Boost Your Followers",
+                    getMoreLikesInput: "Get More Likes",
+                    followersUsername: "Enter your Instagram username",
+                    likesUrl: "Enter your Reel or Post URL",
+                    submitRequest: "Submit Request",
+                    cancel: "Cancel",
+                    
+                    // Pricing
+                    service: "Service",
+                    min: "Min",
+                    max: "Max",
+                    pricePer100: "Price per 100",
+                    followers: "Followers",
+                    likes: "Likes",
+                    pricingNote: "Note: You can order both services in one request.",
+                    
+                    // Custom Order
+                    customOrder: "Custom Order",
+                    serviceType: "Service Type",
+                    quantity: "Quantity (100-100,000)",
+                    instagramUsername: "Instagram Username",
+                    reelUrl: "Reel/Post URL (optional if only followers selected)",
+                    usdtWallet: "USDT Wallet Address (required for paid orders)",
+                    confirmOrder: "Confirm Order",
+                    processingCustom: "Processing your custom order...",
+                    
+                    // Confirmation
+                    paymentConfirmation: "Payment Confirmation",
+                    total: "Total: ",
+                    paymentMessage: "Please send exactly",
+                    usdtToAddress: "USDT to the address above.",
+                    afterPayment: "After payment, click 'Payment Confirmed'. Our admin will verify your deposit and start your order.",
+                    paymentConfirmed: "Payment Confirmed",
+                    
+                    // Footer
+                    support: "Support",
+                    whyUs: "Why Us",
+                    aboutUs: "About Us",
+                    termsOfUse: "Terms of Use",
+                    privacyPolicy: "Privacy Policy",
+                    copyright: "All Rights Reserved © 2025 InstaBoost",
+                    
+                    // Chat
+                    chatTitle: "Chat with Support",
+                    chatPlaceholder: "Type your message...",
+                    preLoginName: "Your Full Name",
+                    preLoginEmail: "Your Email",
+                    preLoginMessage: "Your Message",
+                    sendMessage: "Send Message",
+                    
+                    // Modals
+                    login: "Login",
+                    email: "Email",
+                    password: "Password",
+                    dontHaveAccount: "Don't have an account? Create Account",
+                    createNewAccount: "Create New Account",
+                    confirmPassword: "Confirm Password",
+                    usernameOptional: "Username (Optional)",
+                    phoneNumberOptional: "Phone Number (Optional)",
+                    termsAndPrivacy: "I agree to the",
+                    createAccount: "Create Account",
+                    notifications: "Notifications",
+                    welcomeNotificationTitle: "Welcome to our site!",
+                    welcomeNotificationDesc: "We're happy to have you with us.",
+                    tryServicesTitle: "Try our services",
+                    tryServicesDesc: "You can now try our site for free.",
+                    myAccountSettings: "My Account Settings",
+                    changePassword: "Change Password",
+                    viewSubscription: "View My Subscription",
+                    changeEmail: "Change Email Address",
+                    deleteAccount: "Delete Account",
+                    currentPassword: "Current Password",
+                    newPassword: "New Password",
+                    confirmNewPassword: "Confirm Password",
+                    updatePassword: "Update Password",
+                    currentSubscription: "My Current Subscription",
+                    noSubscription: "No active subscription currently.",
+                    upgradeSubscription: "Upgrade Subscription",
+                    currentEmail: "Current Email",
+                    newEmail: "New Email",
+                    updateEmail: "Update Email",
+                    loginProcessing: "Logging in...",
+                    
+                    // Form Placeholders
+                    yourName: "Your Name",
+                    yourEmail: "Your Email",
+                    writeReview: "Write your review here...",
+                    
+                    // Terms Checkbox
+                    termsLabel: "I agree to the Terms of Use and Privacy Policy."
+                },
+                ar: {
+                    // Navbar
+                    siteName: "إنستابوست",
+                    loginText: "تسجيل الدخول",
+                    
+                    // Hero
+                    heroTitle: "عزز حضورك على إنستغرام",
+                    heroDesc: "احصل على متابعين وإعجابات حقيقية لرفع مستوى حسابك على إنستغرام فورًا.",
+                    
+                    // Intro
+                    introText: "يوفر إنستابوست خدمات مميزة لزيادة متابعي إنستغرام مع تفاعل حقيقي. تقدم منصتنا خططًا تجريبية مجانية وخططًا مدفوعة بأسعار معقولة لمساعدتك في بناء وجودك على وسائل التواصل الاجتماعي بشكل فعال وآمن.",
+                    
+                    // Cards
+                    createAccount: "إنشاء حساب",
+                    boostFollowers: "زيادة المتابعين",
+                    getMoreLikes: "زيادة الإعجابات",
+                    selectYourPlan: "اختر خطتك",
+                    premiumTerminalTool: "أداة المحطة المميزة",
+                    loyaltyBonus: "مكافأة الولاء!",
+                    otherFreeSites: "مواقع أخرى مجانية",
+                    
+                    // Card Descriptions
+                    createAccountDesc: "ابدأ بإنشاء حساب جديد على موقعنا.",
+                    boostFollowersDesc: "احصل على متابعين حقيقيين لحسابك على إنستغرام.",
+                    getMoreLikesDesc: "احصل على إعجابات على منشوراتك ومقاطع الفيديو الخاصة بك.",
+                    selectYourPlanDesc: "خطة مجانية (20) أو خطط مدفوعة تبدأ من 0.1 دولار.",
+                    premiumTerminalToolDesc: "أداة مضمونة بسعر 20 دولار لإرسال 100 ألف متابع وإعجاب.",
+                    loyaltyBonusDesc: "العملاء الدائمون يحصلون على 100 متابع مجاني!",
+                    otherFreeSitesDesc: "اكتشف مواقع أخرى للحصول على متابعين مجانًا.",
+                    
+                    // Buttons
+                    loyaltyLoginBtn: "تسجيل الدخول للحصول على المكافأة",
+                    contactSupport: "اتصل بالدعم للشراء",
+                    openSite: "فتح الموقع",
+                    
+                    // Portfolio
+                    portfolioTitle: "معرض أعمالنا",
+                    
+                    // Websites Section
+                    otherFreeServices: "خدمات إنستغرام مجانية أخرى",
+                    warningText: "⚠️ تحذير: قد لا توفر هذه المواقع متابعين حقيقيين وغالبًا ما تتطلب إنشاء حسابات وهمية لتسجيل الدخول.",
+                    importantNotice: "تنبيه مهم:",
+                    noticeDesc: "لا توفر أي من هذه المواقع متابعين حقيقيين ونشطين على إنستغرام. فهي تتطلب منك إنشاء حسابات وهمية للوصول إلى خدماتها، وغالبًا ما تكون المتابعات التي تحصل عليها عبارة عن روبوتات أو حسابات غير نشطة يمكن أن تضر بمصداقية ملفك الشخصي على إنستغرام وقد تنتهك شروط خدمة إنستغرام.",
+                    
+                    // Reviews
+                    reviewsTitle: "آراء العملاء",
+                    addReviewTitle: "أضف رأيك",
+                    submitReview: "إرسال الرأي",
+                    reviewName: "اسمك",
+                    reviewEmail: "بريدك الإلكتروني",
+                    
+                    // After Login
+                    welcomeBack: "مرحبًا بك مجددًا!",
+                    welcomeDesc: "أنت الآن متصل. اختر خدمتك لتبدأ.",
+                    boostYourFollowers: "زيادة متابعيك",
+                    getMoreLikesService: "زيادة إعجاباتك",
+                    enterUsername: "أدخل اسم المستخدم",
+                    enterReelPostLink: "أدخل رابط المنشور/الفيديو",
+                    processing: "جاري معالجة طلبك...",
+                    successMessage: "✅ تم إرسال طلبك إلى الدعم!",
+                    
+                    // Input Sections
+                    boostFollowersInput: "زيادة متابعيك",
+                    getMoreLikesInput: "زيادة إعجاباتك",
+                    followersUsername: "أدخل اسم مستخدم إنستغرام الخاص بك",
+                    likesUrl: "أدخل رابط المنشور أو الفيديو الخاص بك",
+                    submitRequest: "إرسال الطلب",
+                    cancel: "إلغاء",
+                    
+                    // Pricing
+                    service: "الخدمة",
+                    min: "الحد الأدنى",
+                    max: "الحد الأقصى",
+                    pricePer100: "السعر لكل 100",
+                    followers: "المتابعون",
+                    likes: "الإعجابات",
+                    pricingNote: "ملاحظة: يمكنك طلب الخدمتين معًا في طلب واحد.",
+                    
+                    // Custom Order
+                    customOrder: "طلب مخصص",
+                    serviceType: "نوع الخدمة",
+                    quantity: "الكمية (100-100,000)",
+                    instagramUsername: "اسم مستخدم إنستغرام",
+                    reelUrl: "رابط المنشور/الفيديو (اختياري إذا اخترت المتابعين فقط)",
+                    usdtWallet: "عنوان محفظة USDT (مطلوب للطلبات المدفوعة)",
+                    confirmOrder: "تأكيد الطلب",
+                    processingCustom: "جاري معالجة طلبك المخصص...",
+                    
+                    // Confirmation
+                    paymentConfirmation: "تأكيد الدفع",
+                    total: "المجموع: ",
+                    paymentMessage: "يرجى إرسال بالضبط",
+                    usdtToAddress: "USDT إلى العنوان أعلاه.",
+                    afterPayment: "بعد الدفع، اضغط على 'تم التأكيد'. سيقوم المسؤول لدينا بالتحقق من إيداعك وبدء طلبك.",
+                    paymentConfirmed: "تم التأكيد",
+                    
+                    // Footer
+                    support: "الدعم",
+                    whyUs: "لماذا نحن",
+                    aboutUs: "من نحن",
+                    termsOfUse: "شروط الاستخدام",
+                    privacyPolicy: "سياسة الخصوصية",
+                    copyright: "جميع الحقوق محفوظة © 2025 إنستابوست",
+                    
+                    // Chat
+                    chatTitle: "الدردشة مع الدعم",
+                    chatPlaceholder: "اكتب رسالتك...",
+                    preLoginName: "اسمك الكامل",
+                    preLoginEmail: "بريدك الإلكتروني",
+                    preLoginMessage: "رسالتك",
+                    sendMessage: "إرسال الرسالة",
+                    
+                    // Modals
+                    login: "تسجيل الدخول",
+                    email: "البريد الإلكتروني",
+                    password: "كلمة المرور",
+                    dontHaveAccount: "ليس لديك حساب؟ إنشاء حساب",
+                    createNewAccount: "إنشاء حساب جديد",
+                    confirmPassword: "تأكيد كلمة المرور",
+                    usernameOptional: "اسم المستخدم (اختياري)",
+                    phoneNumberOptional: "رقم الهاتف (اختياري)",
+                    termsAndPrivacy: "أوافق على",
+                    createAccount: "إنشاء حساب",
+                    notifications: "الإشعارات",
+                    welcomeNotificationTitle: "مرحبًا بك في موقعنا!",
+                    welcomeNotificationDesc: "يسعدنا وجودك معنا.",
+                    tryServicesTitle: "جرب خدماتنا",
+                    tryServicesDesc: "يمكنك الآن تجربة موقعنا مجانًا.",
+                    myAccountSettings: "إعدادات حسابي",
+                    changePassword: "تغيير كلمة المرور",
+                    viewSubscription: "عرض اشتراكي",
+                    changeEmail: "تغيير عنوان البريد الإلكتروني",
+                    deleteAccount: "حذف الحساب",
+                    currentPassword: "كلمة المرور الحالية",
+                    newPassword: "كلمة المرور الجديدة",
+                    confirmNewPassword: "تأكيد كلمة المرور",
+                    updatePassword: "تحديث كلمة المرور",
+                    currentSubscription: "اشتراكي الحالي",
+                    noSubscription: "لا يوجد اشتراك نشط حاليًا.",
+                    upgradeSubscription: "ترقية الاشتراك",
+                    currentEmail: "البريد الإلكتروني الحالي",
+                    newEmail: "البريد الإلكتروني الجديد",
+                    updateEmail: "تحديث البريد الإلكتروني",
+                    loginProcessing: "جاري تسجيل الدخول...",
+                    
+                    // Form Placeholders
+                    yourName: "اسمك",
+                    yourEmail: "بريدك الإلكتروني",
+                    writeReview: "اكتب رأيك هنا...",
+                    
+                    // Terms Checkbox
+                    termsLabel: "أوافق على شروط الاستخدام وسياسة الخصوصية."
+                }
+            };
+
             let isLoggedIn = false;
             let currentRating = 0;
             let selectedService = null;
             let currentSlideIndex = 0;
+            let portfolioSlideIndex = 0;
             const slideImages = [
                 'https://via.placeholder.com/600x300/e1306c/fff?text=Sample+Work+1',
                 'https://via.placeholder.com/600x300/f09433/fff?text=Sample+Work+2',
@@ -1664,6 +2150,7 @@
             // ===== Select Elements =====
             const loginIconWrapper = document.getElementById('login-icon-wrapper');
             const loginIcon = document.getElementById('login-icon');
+            const loginText = document.getElementById('login-text');
             const notificationIcon = document.getElementById('notification-icon');
             const notificationBadge = document.getElementById('notification-badge');
             const myAccountIcon = document.getElementById('my-account-icon');
@@ -1675,8 +2162,6 @@
             const changePasswordModal = document.getElementById('change-password-modal');
             const mySubscriptionModal = document.getElementById('my-subscription-modal');
             const changeEmailModal = document.getElementById('change-email-modal');
-            const terminalToolContent = document.getElementById('terminal-page');
-            const otherSitesContent = document.getElementById('websites-page');
             const openSignupBtn = document.getElementById('open-signup-btn');
             const changePasswordLink = document.getElementById('change-password-link');
             const mySubscriptionLink = document.getElementById('my-subscription-link');
@@ -1707,13 +2192,11 @@
             const preLoginMessage = document.getElementById('pre-login-message');
             const sendPreLoginMessage = document.getElementById('send-pre-login-message');
             const loyaltyLoginBtn = document.getElementById('loyalty-login-btn');
-            const terminalLearnMore = document.getElementById('terminal-link');
-            const otherSitesLearnMore = document.getElementById('websites-link');
-            const closeTerminalContent = document.getElementById('close-terminal-page');
-            const closeOtherSitesContent = document.getElementById('close-websites-page');
             const terminalContactSupport = document.getElementById('terminal-contact-support');
             const followersService = document.getElementById('followers-service');
             const likesService = document.getElementById('likes-service');
+            const enlargedFollowersService = document.getElementById('enlarged-followers-service');
+            const enlargedLikesService = document.getElementById('enlarged-likes-service');
             const followersInputSection = document.getElementById('followers-input-section');
             const likesInputSection = document.getElementById('likes-input-section');
             const submitFollowers = document.getElementById('submit-followers');
@@ -1729,6 +2212,7 @@
             const totalAmount = document.getElementById('total-amount');
             const paymentAmount = document.getElementById('payment-amount');
             const portfolioSlider = document.getElementById('portfolio-slider');
+            const terminalImages = document.getElementById('terminal-images');
             const passwordInput = document.getElementById('new-password');
             const passwordStrengthBar = document.getElementById('password-strength-bar');
             const passwordStrengthContainer = document.getElementById('password-strength');
@@ -1736,6 +2220,273 @@
             const footerLanguageToggle = document.getElementById('footer-language-toggle');
             const langText = document.getElementById('lang-text');
             const footerLangText = document.getElementById('footer-lang-text');
+            const loginPassword = document.getElementById('password');
+            const signupPassword = document.getElementById('new-password');
+            const confirmPassword = document.getElementById('confirm-password');
+            const togglePassword = document.getElementById('toggle-password');
+            const toggleSignupPassword = document.getElementById('toggle-signup-password');
+            const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+            const termsCheckbox = document.getElementById('terms-checkbox');
+            const termsLabel = document.getElementById('terms-label');
+            const loginLoading = document.getElementById('login-loading');
+            const customOrderLoading = document.getElementById('custom-order-loading');
+            
+            // === Language Management ===
+            let currentLang = 'en';
+            
+            function getCurrentLanguage() {
+                return document.documentElement.lang === 'ar' ? 'ar' : 'en';
+            }
+            
+            function setLanguage(lang) {
+                currentLang = lang;
+                localStorage.setItem('selectedLanguage', lang);
+                langText.textContent = lang === 'ar' ? 'AR' : 'EN';
+                footerLangText.textContent = lang === 'ar' ? 'AR' : 'EN';
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                updateTranslations();
+            }
+            
+            function updateTranslations() {
+                const lang = getCurrentLanguage();
+                const t = translations[lang];
+                
+                // Navbar
+                document.getElementById('site-name').textContent = t.siteName;
+                loginText.textContent = t.loginText;
+                
+                // Hero
+                document.getElementById('hero-title').textContent = t.heroTitle;
+                document.getElementById('hero-desc').textContent = t.heroDesc;
+                
+                // Intro
+                document.querySelector('.intro-section p').textContent = t.introText;
+                
+                // Step Cards
+                const cards = document.querySelectorAll('.square-card');
+                if (cards.length >= 8) {
+                    cards[0].querySelector('h3').textContent = t.createAccount;
+                    cards[0].querySelector('p').textContent = t.createAccountDesc;
+                    cards[1].querySelector('h3').textContent = t.boostFollowers;
+                    cards[1].querySelector('p').textContent = t.boostFollowersDesc;
+                    cards[2].querySelector('h3').textContent = t.getMoreLikes;
+                    cards[2].querySelector('p').textContent = t.getMoreLikesDesc;
+                    cards[3].querySelector('h3').textContent = t.selectYourPlan;
+                    cards[3].querySelector('p').textContent = t.selectYourPlanDesc;
+                    cards[4].querySelector('h3').textContent = t.premiumTerminalTool;
+                    cards[4].querySelector('p').textContent = t.premiumTerminalToolDesc;
+                    cards[5].querySelector('h3').textContent = t.loyaltyBonus;
+                    cards[5].querySelector('p').textContent = t.loyaltyBonusDesc;
+                    cards[5].querySelector('button').textContent = t.loyaltyLoginBtn;
+                    cards[6].querySelector('h3').textContent = t.otherFreeSites;
+                    cards[6].querySelector('p').textContent = t.otherFreeSitesDesc;
+                }
+                
+                // Terminal Section
+                document.querySelector('.terminal-section h2').textContent = t.premiumTerminalTool;
+                document.querySelector('.terminal-section p').textContent = t.premiumTerminalToolDesc.replace('Guaranteed tool for $20 to send 100K followers & likes.', '');
+                document.getElementById('terminal-contact-support').textContent = t.contactSupport;
+                
+                // Portfolio
+                document.getElementById('portfolio-title').textContent = t.portfolioTitle;
+                
+                // Websites Section
+                document.querySelector('.websites-section h2').textContent = t.otherFreeServices;
+                document.querySelector('.websites-section p').textContent = t.warningText;
+                const websiteItems = document.querySelectorAll('.website-item');
+                if (websiteItems.length >= 2) {
+                    websiteItems[0].querySelector('h4').textContent = '1. Takipcizen.com';
+                    websiteItems[0].querySelector('p').textContent = t.otherFreeSitesDesc;
+                    websiteItems[0].querySelector('.btn').textContent = t.openSite;
+                    websiteItems[1].querySelector('h4').textContent = '2. Takipcigir.com';
+                    websiteItems[1].querySelector('p').textContent = t.otherFreeSitesDesc;
+                    websiteItems[1].querySelector('.btn').textContent = t.openSite;
+                }
+                document.querySelector('.website-warning h4').textContent = t.importantNotice;
+                document.querySelector('.website-warning p').textContent = t.noticeDesc;
+                
+                // Reviews
+                document.getElementById('reviews-title').textContent = t.reviewsTitle;
+                document.getElementById('add-review-title').textContent = t.addReviewTitle;
+                document.querySelector('.review-form button').textContent = t.submitReview;
+                document.getElementById('review-name').placeholder = t.yourName;
+                document.getElementById('review-email').placeholder = t.yourEmail;
+                document.getElementById('review-text').placeholder = t.writeReview;
+                
+                // After Login
+                document.getElementById('welcome-back').textContent = t.welcomeBack;
+                document.getElementById('welcome-desc').textContent = t.welcomeDesc;
+                if (enlargedFollowersService) {
+                    enlargedFollowersService.querySelector('h3').textContent = t.boostYourFollowers;
+                    enlargedFollowersService.querySelector('p').textContent = t.boostFollowersDesc;
+                    enlargedFollowersService.querySelector('.btn').textContent = t.enterUsername;
+                }
+                if (enlargedLikesService) {
+                    enlargedLikesService.querySelector('h3').textContent = t.getMoreLikesService;
+                    enlargedLikesService.querySelector('p').textContent = t.getMoreLikesDesc;
+                    enlargedLikesService.querySelector('.btn').textContent = t.enterReelPostLink;
+                }
+                
+                // Input Sections
+                if (followersInputSection.style.display !== 'none') {
+                    followersInputSection.querySelector('h3').textContent = t.boostFollowersInput;
+                    document.getElementById('followers-username').placeholder = t.followersUsername;
+                    document.getElementById('submit-followers').textContent = t.submitRequest;
+                    document.getElementById('cancel-followers').textContent = t.cancel;
+                }
+                if (likesInputSection.style.display !== 'none') {
+                    likesInputSection.querySelector('h3').textContent = t.getMoreLikesInput;
+                    document.getElementById('likes-url').placeholder = t.likesUrl;
+                    document.getElementById('submit-likes').textContent = t.submitRequest;
+                    document.getElementById('cancel-likes').textContent = t.cancel;
+                }
+                
+                // Loading & Success
+                document.querySelector('.loading-spinner p').textContent = t.processing;
+                document.getElementById('success-notification').textContent = t.successMessage;
+                
+                // Pricing Table
+                const pricingHeaders = document.querySelectorAll('.pricing-table th');
+                if (pricingHeaders.length >= 4) {
+                    pricingHeaders[0].textContent = t.service;
+                    pricingHeaders[1].textContent = t.min;
+                    pricingHeaders[2].textContent = t.max;
+                    pricingHeaders[3].textContent = t.pricePer100;
+                }
+                const pricingRows = document.querySelectorAll('.pricing-table td');
+                if (pricingRows.length >= 8) {
+                    pricingRows[0].textContent = t.followers;
+                    pricingRows[4].textContent = t.likes;
+                }
+                document.querySelector('.pricing-note').textContent = t.pricingNote;
+                
+                // Custom Order
+                document.querySelector('.custom-order-card h3').textContent = t.customOrder;
+                document.querySelector('[for="service-type"]').textContent = t.serviceType;
+                document.querySelector('[for="quantity"]').textContent = t.quantity;
+                document.querySelector('[for="instagram-username"]').textContent = t.instagramUsername;
+                document.querySelector('[for="reel-url"]').textContent = t.reelUrl;
+                document.querySelector('[for="usdt-wallet"]').textContent = t.usdtWallet;
+                document.getElementById('confirm-order').textContent = t.confirmOrder;
+                document.getElementById('custom-order-loading').querySelector('p').textContent = t.processingCustom;
+                
+                // Confirmation Screen
+                if (confirmationScreen.style.display !== 'none') {
+                    confirmationScreen.querySelector('h3').textContent = t.paymentConfirmation;
+                    // Amount is updated separately based on calculation
+                    const messageDiv = confirmationScreen.querySelector('.message');
+                    if (messageDiv) {
+                        messageDiv.innerHTML = `💳 ${t.paymentMessage} <span id="payment-amount">${paymentAmount.textContent}</span> ${t.usdtToAddress}<br>🕒 ${t.afterPayment}`;
+                    }
+                    document.getElementById('payment-confirmed').textContent = t.paymentConfirmed;
+                    document.getElementById('cancel-payment').textContent = t.cancel;
+                }
+                
+                // Footer
+                const footerLinks = document.querySelectorAll('.footer-links a');
+                if (footerLinks.length >= 5) {
+                    footerLinks[0].textContent = t.support;
+                    footerLinks[1].textContent = t.whyUs;
+                    footerLinks[2].textContent = t.aboutUs;
+                    footerLinks[3].textContent = t.termsOfUse;
+                    footerLinks[4].textContent = t.privacyPolicy;
+                }
+                document.getElementById('copyright').textContent = t.copyright;
+                
+                // Chat
+                document.getElementById('chat-title').textContent = t.chatTitle;
+                document.getElementById('chat-input').placeholder = t.chatPlaceholder;
+                document.getElementById('pre-login-name').placeholder = t.preLoginName;
+                document.getElementById('pre-login-email').placeholder = t.preLoginEmail;
+                document.getElementById('pre-login-message').placeholder = t.preLoginMessage;
+                document.getElementById('send-pre-login-message').textContent = t.sendMessage;
+                
+                // Modals
+                document.getElementById('login-title').textContent = t.login;
+                document.getElementById('username-label').textContent = t.email;
+                document.getElementById('password-label').textContent = t.password;
+                document.getElementById('username').placeholder = t.email;
+                document.getElementById('password').placeholder = t.password;
+                document.getElementById('login-loading').querySelector('p').textContent = t.loginProcessing;
+                document.querySelector('#login-form .modal-btn').textContent = t.login;
+                document.getElementById('open-signup-btn').textContent = t.dontHaveAccount;
+                
+                document.getElementById('signup-title').textContent = t.createNewAccount;
+                document.getElementById('new-email-label').textContent = t.email;
+                document.getElementById('new-password-label').textContent = t.password;
+                document.getElementById('confirm-password-label').textContent = t.confirmPassword;
+                document.getElementById('new-username-label').textContent = t.usernameOptional;
+                document.getElementById('phone-number-label').textContent = t.phoneNumberOptional;
+                document.getElementById('terms-label').innerHTML = `${t.termsAndPrivacy} <a href="#" id="terms-link-modal">Terms of Use</a> ${t.and} <a href="#" id="privacy-link-modal">Privacy Policy</a>.`;
+                document.querySelector('.privacy-text').innerHTML = `${t.termsAndPrivacy} <a href="#" id="terms-link-modal2">Terms of Use</a> ${t.and} <a href="#" id="privacy-link-modal2">Privacy Policy</a>.`;
+                document.querySelector('#signup-form .modal-btn').textContent = t.createAccount;
+                
+                document.getElementById('notifications-title').textContent = t.notifications;
+                document.getElementById('notif-welcome-title').textContent = t.welcomeNotificationTitle;
+                document.getElementById('notif-welcome-desc').textContent = t.welcomeNotificationDesc;
+                document.getElementById('notif-try-title').textContent = t.tryServicesTitle;
+                document.getElementById('notif-try-desc').textContent = t.tryServicesDesc;
+                
+                document.getElementById('account-title').textContent = t.myAccountSettings;
+                document.getElementById('change-password-link').textContent = t.changePassword;
+                document.getElementById('my-subscription-link').textContent = t.viewSubscription;
+                document.getElementById('change-email-link').textContent = t.changeEmail;
+                document.getElementById('delete-account-link').textContent = t.deleteAccount;
+                
+                // Change Password Modal
+                document.getElementById('change-password-title').textContent = t.changePassword;
+                document.getElementById('current-password-label').textContent = t.currentPassword;
+                document.getElementById('new-password-label').textContent = t.newPassword;
+                document.getElementById('confirm-password-label').textContent = t.confirmNewPassword;
+                document.querySelector('#change-password-form .modal-btn').textContent = t.updatePassword;
+                
+                // My Subscription Modal
+                document.getElementById('my-subscription-title').textContent = t.currentSubscription;
+                document.getElementById('subscription-details').textContent = t.noSubscription;
+                document.getElementById('upgrade-subscription-btn').textContent = t.upgradeSubscription;
+                
+                // Change Email Modal
+                document.getElementById('change-email-title').textContent = t.changeEmail;
+                document.getElementById('current-email-label').textContent = t.currentEmail;
+                document.getElementById('new-email-label').textContent = t.newEmail;
+                document.querySelector('#change-email-form .modal-btn').textContent = t.updateEmail;
+            }
+            
+            // Check saved language
+            const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+            setLanguage(savedLang);
+            
+            languageToggle.addEventListener('click', () => {
+                const currentLang = getCurrentLanguage() === 'en' ? 'ar' : 'en';
+                setLanguage(currentLang);
+            });
+            
+            footerLanguageToggle.addEventListener('click', () => {
+                const currentLang = getCurrentLanguage() === 'en' ? 'ar' : 'en';
+                setLanguage(currentLang);
+            });
+            
+            // ===== Password Toggle =====
+            function setupPasswordToggle(inputId, toggleId) {
+                const input = document.getElementById(inputId);
+                const toggle = document.getElementById(toggleId);
+                if (input && toggle) {
+                    toggle.addEventListener('click', () => {
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            toggle.className = 'fa-solid fa-eye-slash';
+                        } else {
+                            input.type = 'password';
+                            toggle.className = 'fa-solid fa-eye';
+                        }
+                    });
+                }
+            }
+            
+            setupPasswordToggle('password', 'toggle-password');
+            setupPasswordToggle('new-password', 'toggle-signup-password');
+            setupPasswordToggle('confirm-password', 'toggle-confirm-password');
             
             // ===== Password Strength Meter =====
             function calculatePasswordStrength(password) {
@@ -1771,43 +2522,36 @@
             function showNextSlide() {
                 const currentImg = portfolioSlider.querySelector('img');
                 if (!currentImg) return;
-                
                 currentImg.classList.add('fade-out');
                 setTimeout(() => {
-                    currentSlideIndex = (currentSlideIndex + 1) % slideImages.length;
-                    currentImg.src = slideImages[currentSlideIndex];
+                    portfolioSlideIndex = (portfolioSlideIndex + 1) % slideImages.length;
+                    currentImg.src = slideImages[portfolioSlideIndex];
                     currentImg.classList.remove('fade-out');
                 }, 400);
             }
             
             setInterval(showNextSlide, 4000);
             
-            // ===== Language Toggle =====
-            function setLanguage(lang) {
-                localStorage.setItem('selectedLanguage', lang);
-                langText.textContent = lang;
-                footerLangText.textContent = lang;
-                document.documentElement.lang = lang.toLowerCase();
-                if (lang === 'AR') {
-                    document.documentElement.dir = 'rtl';
-                } else {
-                    document.documentElement.dir = 'ltr';
-                }
+            // ===== Terminal Images Slider =====
+            const terminalSlideImages = [
+                'https://placehold.co/600x300/4ecdc4/fff?text=Terminal+Tool+Demo+1',
+                'https://placehold.co/600x300/f09433/fff?text=Terminal+Tool+Demo+2',
+                'https://placehold.co/600x300/bc1888/fff?text=Terminal+Tool+Demo+3'
+            ];
+            let terminalSlideIndex = 0;
+            
+            function showNextTerminalSlide() {
+                const currentImg = terminalImages.querySelector('img');
+                if (!currentImg) return;
+                currentImg.classList.add('fade-out');
+                setTimeout(() => {
+                    terminalSlideIndex = (terminalSlideIndex + 1) % terminalSlideImages.length;
+                    currentImg.src = terminalSlideImages[terminalSlideIndex];
+                    currentImg.classList.remove('fade-out');
+                }, 400);
             }
             
-            // Check saved language
-            const savedLang = localStorage.getItem('selectedLanguage') || 'EN';
-            setLanguage(savedLang);
-            
-            languageToggle.addEventListener('click', () => {
-                const currentLang = langText.textContent === 'EN' ? 'AR' : 'EN';
-                setLanguage(currentLang);
-            });
-            
-            footerLanguageToggle.addEventListener('click', () => {
-                const currentLang = footerLangText.textContent === 'EN' ? 'AR' : 'EN';
-                setLanguage(currentLang);
-            });
+            setInterval(showNextTerminalSlide, 5000);
             
             // ===== Form Validation =====
             function showError(inputId, message) {
@@ -1853,26 +2597,28 @@
                 const email = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
                 let isValid = true;
-                
                 if (!validateEmail(email)) {
                     showError('login-email', 'Please enter a valid email address');
                     isValid = false;
                 } else {
                     clearError('login-email');
                 }
-                
                 if (password.length < 6) {
                     showError('login-password', 'Password must be at least 6 characters');
                     isValid = false;
                 } else {
                     clearError('login-password');
                 }
-                
                 if (isValid) {
+                    // Show loading spinner
+                    loginLoading.style.display = 'block';
                     // Mock login
-                    isLoggedIn = true;
-                    closeModal(loginModal);
-                    updateUI();
+                    setTimeout(() => {
+                        loginLoading.style.display = 'none';
+                        isLoggedIn = true;
+                        closeModal(loginModal);
+                        updateUI();
+                    }, 2000);
                 }
             });
             
@@ -1882,29 +2628,32 @@
                 const email = document.getElementById('new-email').value;
                 const password = document.getElementById('new-password').value;
                 const confirmPassword = document.getElementById('confirm-password').value;
+                const termsChecked = termsCheckbox.checked;
                 let isValid = true;
-                
                 if (!validateEmail(email)) {
                     showError('signup-email', 'Please enter a valid email address');
                     isValid = false;
                 } else {
                     clearError('signup-email');
                 }
-                
                 if (!validatePassword(password)) {
                     showError('signup-password', 'Password must be at least 8 characters');
                     isValid = false;
                 } else {
                     clearError('signup-password');
                 }
-                
                 if (password !== confirmPassword) {
                     showError('confirm-password', 'Passwords do not match');
                     isValid = false;
                 } else {
                     clearError('confirm-password');
                 }
-                
+                if (!termsChecked) {
+                    document.getElementById('terms-checkbox').style.border = '2px solid var(--error-color)';
+                    isValid = false;
+                } else {
+                    document.getElementById('terms-checkbox').style.border = '1px solid #ddd';
+                }
                 if (isValid) {
                     // Mock signup
                     closeModal(signupModal);
@@ -1928,21 +2677,18 @@
                 const reelUrl = document.getElementById('reel-url').value.trim();
                 const usdtWallet = document.getElementById('usdt-wallet').value.trim();
                 let isValid = true;
-                
                 if (!quantity || quantity < 100 || quantity > 100000) {
                     showError('quantity', 'Quantity must be between 100 and 100,000');
                     isValid = false;
                 } else {
                     clearError('quantity');
                 }
-                
                 if (!username) {
                     showError('instagram-username', 'Instagram username is required');
                     isValid = false;
                 } else {
                     clearError('instagram-username');
                 }
-                
                 if (serviceType !== 'followers' && !reelUrl) {
                     showError('reel-url', 'Reel/Post URL is required for likes');
                     isValid = false;
@@ -1952,15 +2698,15 @@
                 } else {
                     clearError('reel-url');
                 }
-                
                 if (!usdtWallet) {
                     showError('usdt-wallet', 'USDT wallet address is required');
                     isValid = false;
                 } else {
                     clearError('usdt-wallet');
                 }
-                
                 if (isValid) {
+                    // Show loading spinner
+                    customOrderLoading.style.display = 'block';
                     // Calculate price
                     let pricePer100 = 0;
                     if (serviceType === 'followers') {
@@ -1974,9 +2720,13 @@
                     const formattedTotal = total.toFixed(2);
                     totalAmount.textContent = `Total: $${formattedTotal}`;
                     paymentAmount.textContent = `$${formattedTotal}`;
-                    // Show confirmation screen
-                    confirmationScreen.style.display = 'block';
-                    document.querySelector('.custom-order-card').style.display = 'none';
+                    // Show confirmation screen after a short delay
+                    setTimeout(() => {
+                        customOrderLoading.style.display = 'none';
+                        confirmationScreen.style.display = 'block';
+                        document.querySelector('.custom-order-card').style.display = 'none';
+                        updateTranslations(); // Update translations for confirmation screen
+                    }, 2000);
                 }
             });
             
@@ -1984,18 +2734,14 @@
             function openModal(modal) { if (modal) modal.style.display = 'flex'; }
             function closeModal(modal) { if (modal) modal.style.display = 'none'; }
             function openLoginModal() { openModal(loginModal); }
-            
             closeButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     closeModal(btn.closest('.modal'));
                 });
             });
-            
             loginIcon.addEventListener('click', () => openModal(loginModal));
             notificationIcon.addEventListener('click', () => openModal(notificationsPage));
             myAccountIcon.addEventListener('click', () => openModal(myAccountModal));
-            terminalLearnMore.addEventListener('click', () => openModal(terminalToolContent));
-            otherSitesLearnMore.addEventListener('click', () => openModal(otherSitesContent));
             loyaltyLoginBtn.addEventListener('click', () => openModal(loginModal));
             
             // Login/Signup buttons
@@ -2003,25 +2749,21 @@
                 closeModal(loginModal);
                 openModal(signupModal);
             });
-            
             changePasswordLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeModal(myAccountModal);
                 openModal(changePasswordModal);
             });
-            
             mySubscriptionLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeModal(myAccountModal);
                 openModal(mySubscriptionModal);
             });
-            
             changeEmailLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeModal(myAccountModal);
                 openModal(changeEmailModal);
             });
-            
             deleteAccountLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (confirm('Are you sure you want to delete your account?')) {
@@ -2030,19 +2772,15 @@
                     closeModal(myAccountModal);
                 }
             });
-            
             window.addEventListener('click', (e) => {
                 if (e.target.classList.contains('modal')) {
                     closeModal(e.target);
                 }
             });
-            
             upgradeSubscriptionBtn.addEventListener('click', () => {
                 openModal(chatModal);
             });
-            
             terminalContactSupport.addEventListener('click', () => {
-                closeModal(terminalToolContent);
                 openModal(chatModal);
             });
             
@@ -2060,11 +2798,11 @@
                     });
                 });
                 star.addEventListener('mouseout', () => {
-                    reviewStars.forEach(s => {
-                        s.classList.remove('selected');
-                        if (s.dataset.value > currentRating) {
-                            s.classList.remove('fa-solid');
-                            s.classList.add('fa-regular');
+                    reviewStars.forEach(star => {
+                        star.classList.remove('selected');
+                        if (star.dataset.value > currentRating) {
+                            star.classList.remove('fa-solid');
+                            star.classList.add('fa-regular');
                         }
                     });
                 });
@@ -2100,7 +2838,6 @@
                 closeModal(loginModal);
                 updateUI();
             });
-            
             signupForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 closeModal(signupModal);
@@ -2114,7 +2851,6 @@
                 loginModal.querySelector('.modal-content').appendChild(msg);
                 setTimeout(() => msg.remove(), 3000);
             });
-            
             logoutIcon.addEventListener('click', () => {
                 isLoggedIn = false;
                 updateUI();
@@ -2136,11 +2872,9 @@
                     chatModal.style.display = 'flex';
                 }
             });
-            
             closeChat.addEventListener('click', () => {
                 chatModal.style.display = 'none';
             });
-            
             sendMessageBtn.addEventListener('click', () => {
                 if (!isLoggedIn) return;
                 const message = chatInput.value.trim();
@@ -2154,19 +2888,22 @@
                     setTimeout(() => {
                         const supportMessage = document.createElement('div');
                         supportMessage.className = 'message support';
-                        supportMessage.textContent = 'Thank you for your message! We will get back to you soon.';
+                        // Get current language for response
+                        const lang = getCurrentLanguage();
+                        const responseText = lang === 'ar' ? 
+                            'شكرًا لرسالتك! سنتواصل معك قريبًا.' : 
+                            'Thank you for your message! We will get back to you soon.';
+                        supportMessage.textContent = responseText;
                         chatMessages.appendChild(supportMessage);
                         chatMessages.scrollTop = chatMessages.scrollHeight;
                     }, 1000);
                 }
             });
-            
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     sendMessageBtn.click();
                 }
             });
-            
             sendPreLoginMessage.addEventListener('click', () => {
                 const name = preLoginName.value.trim();
                 const email = preLoginEmail.value.trim();
@@ -2177,7 +2914,12 @@
                     successMsg.style.textAlign = 'center';
                     successMsg.style.marginTop = '10px';
                     successMsg.style.fontSize = '0.85rem';
-                    successMsg.textContent = 'Your message has been sent to support!';
+                    // Get current language for message
+                    const lang = getCurrentLanguage();
+                    const successText = lang === 'ar' ? 
+                        'تم إرسال رسالتك إلى الدعم!' : 
+                        'Your message has been sent to support!';
+                    successMsg.textContent = successText;
                     preLoginChatForm.appendChild(successMsg);
                     setTimeout(() => {
                         successMsg.remove();
@@ -2190,28 +2932,48 @@
             });
             
             // ===== Service Selection =====
-            followersService.addEventListener('click', () => {
-                selectedService = 'followers';
-                followersInputSection.style.display = 'block';
-                likesInputSection.style.display = 'none';
-            });
-            
-            likesService.addEventListener('click', () => {
-                selectedService = 'likes';
-                likesInputSection.style.display = 'block';
-                followersInputSection.style.display = 'none';
-            });
-            
+            if (enlargedFollowersService) {
+                enlargedFollowersService.addEventListener('click', () => {
+                    selectedService = 'followers';
+                    followersInputSection.style.display = 'block';
+                    likesInputSection.style.display = 'none';
+                    updateTranslations();
+                });
+            }
+            if (enlargedLikesService) {
+                enlargedLikesService.addEventListener('click', () => {
+                    selectedService = 'likes';
+                    likesInputSection.style.display = 'block';
+                    followersInputSection.style.display = 'none';
+                    updateTranslations();
+                });
+            }
+            if (followersService) {
+                followersService.addEventListener('click', () => {
+                    selectedService = 'followers';
+                    followersInputSection.style.display = 'block';
+                    likesInputSection.style.display = 'none';
+                    updateTranslations();
+                });
+            }
+            if (likesService) {
+                likesService.addEventListener('click', () => {
+                    selectedService = 'likes';
+                    likesInputSection.style.display = 'block';
+                    followersInputSection.style.display = 'none';
+                    updateTranslations();
+                });
+            }
             cancelFollowers.addEventListener('click', () => {
                 followersInputSection.style.display = 'none';
                 selectedService = null;
+                updateTranslations();
             });
-            
             cancelLikes.addEventListener('click', () => {
                 likesInputSection.style.display = 'none';
                 selectedService = null;
+                updateTranslations();
             });
-            
             submitFollowers.addEventListener('click', () => {
                 const username = document.getElementById('followers-username').value.trim();
                 if (username) {
@@ -2221,10 +2983,10 @@
                         showSuccess();
                         followersInputSection.style.display = 'none';
                         document.getElementById('followers-username').value = '';
+                        updateTranslations();
                     }, 3000);
                 }
             });
-            
             submitLikes.addEventListener('click', () => {
                 const url = document.getElementById('likes-url').value.trim();
                 if (url) {
@@ -2234,6 +2996,7 @@
                         showSuccess();
                         likesInputSection.style.display = 'none';
                         document.getElementById('likes-url').value = '';
+                        updateTranslations();
                     }, 3000);
                 }
             });
@@ -2241,11 +3004,9 @@
             function showLoading() {
                 loadingSpinner.style.display = 'block';
             }
-            
             function hideLoading() {
                 loadingSpinner.style.display = 'none';
             }
-            
             function showSuccess() {
                 successNotification.style.display = 'block';
                 setTimeout(() => {
@@ -2257,15 +3018,20 @@
             cancelPaymentBtn.addEventListener('click', () => {
                 confirmationScreen.style.display = 'none';
                 document.querySelector('.custom-order-card').style.display = 'block';
+                updateTranslations();
             });
-            
             paymentConfirmedBtn.addEventListener('click', () => {
                 const successMsg = document.createElement('div');
                 successMsg.style.color = 'green';
                 successMsg.style.textAlign = 'center';
                 successMsg.style.marginTop = '10px';
                 successMsg.style.fontSize = '0.85rem';
-                successMsg.textContent = 'Payment confirmed! Our admin will verify your deposit and start your order.';
+                // Get current language for message
+                const lang = getCurrentLanguage();
+                const successText = lang === 'ar' ? 
+                    'تم تأكيد الدفع! سيتم التحقق من إيداعك وبدء طلبك.' : 
+                    'Payment confirmed! Our admin will verify your deposit and start your order.';
+                successMsg.textContent = successText;
                 confirmationScreen.appendChild(successMsg);
                 setTimeout(() => {
                     successMsg.remove();
@@ -2275,6 +3041,7 @@
                     document.getElementById('instagram-username').value = '';
                     document.getElementById('reel-url').value = '';
                     document.getElementById('usdt-wallet').value = '';
+                    updateTranslations();
                 }, 3000);
             });
             
@@ -2296,6 +3063,7 @@
                     myAccountIcon.style.display = 'none';
                     logoutIcon.style.display = 'none';
                 }
+                updateTranslations();
             }
             
             updateUI();
@@ -2303,3 +3071,4 @@
     </script>
 </body>
 </html>
+```
